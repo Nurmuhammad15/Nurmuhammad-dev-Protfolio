@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нурмухаммад | Frontend Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter для современного минимализма -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-name">Нурмухаммад.dev</span>
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link">Главная</a></li>
+                    <li><a href="#about" class="nav-link">Обо мне</a></li>
+                    <li><a href="#projects" class="nav-link">Проекты</a></li>
+                    <li><a href="#skills" class="nav-link">Навыки</a></li>
+                    <li><a href="#contact" class="nav-link">Контакты</a></li>
+                </ul>
+                <!-- Кнопка Telegram внутри nav для мобильного меню, но стилизуется отдельно на десктопе -->
+                <a href="https://t.me/Nurmuhammad_dev1" target="_blank" class="btn btn-telegram mobile-btn-telegram">
+                    Связаться через Telegram <i class="fab fa-telegram-plane"></i>
+                </a>
+            </nav>
+            <!-- Отдельная кнопка Telegram для десктопа -->
+            <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank"
+                class="btn btn-telegram desktop-btn-telegram">
+                Связаться через Telegram <i class="fab fa-telegram-plane"></i>
+            </a>
+            <button class="hamburger" aria-label="Открыть меню">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section animated-section">
+            <div class="container hero-content">
+                <p class="hero-greeting" style="animation-delay: 0.2s;">Привет, я</p>
+                <h1 class="hero-name" style="animation-delay: 0.4s;">Нурмухаммад.</h1>
+                <p class="hero-title" style="animation-delay: 0.6s;">Frontend Developer | React | TypeScript | Tailwind
+                    | Figma | PhotoShop | </p>
+                <div class="social-links" style="animation-delay: 0.8s;">
+                    <a href="https://github.com/your_github_username" target="_blank" aria-label="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/your_linkedin_username" target="_blank" aria-label="LinkedIn"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:your_email@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section section-padding animated-section">
+            <div class="container">
+                <h2 class="section-title">Обо мне</h2>
+                <div class="about-content">
+                    <p>Men Nurmuhammad — zamonaviy raqamli yechimlar yaratishga qiziqadigan yosh IT mutaxassisiman.
+                        Menga texnologiyalar bilan ishlash, veb-saytlar, ilovalar va odamlar hamda biznesga yordam
+                        beradigan vositalar yaratish yoqadi.
+
+                        Mening asosiy qiziqishlarim — veb-razrabotka, jarayonlarni avtomatlashtirish va qulay
+                        interfeyslar yaratish. Men doimiy ravishda yangi texnologiyalarni o‘rganaman va amaliyot
+                        qilaman, shunday qilib ko‘nikmalarimni oshirib boraman.
+
+                        Mening portfoliomda siz HTML, CSS, JavaScript va boshqa vositalar yordamida yaratgan ishonchli
+                        loyihalarimni ko‘rasiz — oddiy saytlardan tortib interaktiv ilovalargacha.
+
+                        Mening maqsadim — nafaqat kod yozadigan, balki biznes muammolarini texnologiyalar yordamida hal
+                        qila oladigan kuchli mutaxassis bo‘lish.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects-section section-padding animated-section">
+            <div class="container">
+                <h2 class="section-title">Мои Проекты</h2>
+                <div class="projects-grid">
+                    <!-- Пример карточки проекта 1 -->
+                    <div class="project-card" style="animation-delay: 0.1s;">
+                        <img src="./images/50b0fb4a-65dd-432d-ac7b-1046d479f4c2.png" alt="Скриншот Проекта 1"
+                            class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Asia Mobile</h3>
+                            <p class="project-description">Zamonaviy Aisa Mobile telefon dokoni sayti.</p>
+                            <div class="project-actions">
+                                <a href="https://asia-mobile2.vercel.app/" target="_blank" class="btn btn-project">Live
+                                    Demo <i class="fas fa-external-link-alt"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Пример карточки проекта 2 -->
+                    <div class="project-card" style="animation-delay: 0.2s;">
+                        <img src="./images/ee446d89-a9a3-426a-bd9d-60a33b0e09f4.png" alt="Скриншот Проекта 2"
+                            class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Yasmin Gold</h3>
+                            <p class="project-description">Yasmin Gold sayti minimalistic hooverlarlar va avtomatic
+                                sayt.</p>
+                            <div class="project-actions">
+                                <a href="https://yasmin-gold-chi.vercel.app/" target="_blank"
+                                    class="btn btn-project">Live Demo <i class="fas fa-external-link-alt"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Пример карточки проекта 3 -->
+                    <div class="project-card" style="animation-delay: 0.3s;">
+                        <img src="./images/b383de63-06cb-4512-855c-7dc86074ab36 (1).jpg" alt="Скриншот Проекта 3"
+                            class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Dash Board</h3>
+                            <p class="project-description">BU Dash Board sayti bu sayt yordamida biznesmenlar ishini
+                                yoki hisob kitobini osonlashtirishligi mumkin.</p>
+                            <div class="project-actions">
+                                <a href="https://tp-tau-nine.vercel.app/" target="_blank" class="btn btn-project">Live
+                                    Demo <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card" style="animation-delay: 0.3s;">
+                        <img src="./images/photo_5404579686585072715_y.jpg" alt="Скриншот Проекта 3"
+                            class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Cosmetic App</h3>
+                            <p class="project-description">Bu Cosmetic App minimalistic va functional bolib chiroyli
+                                dizayinda bolgan.</p>
+                            <div class="project-actions">
+                                <a href="https://cosmetic-app-4h57.vercel.app/" target="_blank"
+                                    class="btn btn-project">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card" style="animation-delay: 0.3s;">
+                        <img src="./images/photo_5404579686585072695_w.jpg" alt="Скриншот Проекта 3"
+                            class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Cosmic App</h3>
+                            <p class="project-description">Bu Cosmic App 3d Animatsiyalar kodi bilan yozilgan.</p>
+                            <div class="project-actions">
+                                <a href="https://cosmic-app-eta.vercel.app/" target="_blank"
+                                    class="btn btn-project">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card" style="animation-delay: 0.3s;">
+                        <img src="./images/photo_5404579686585072750_y.jpg" alt="Скриншот Проекта 3"
+                            class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Globe Trotter App</h3>
+                            <p class="project-description">Globe Trotter App yordamida siz online chiptalar sotib
+                                olishingiz mumkin.</p>
+                            <div class="project-actions">
+                                <a href="https://avia-sells-app.vercel.app/" target="_blank"
+                                    class="btn btn-project">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="project-card" style="animation-delay: 0.3s;">
+                        <img src="./images/5325721389794790600.jpg" alt="Скриншот Проекта 3" class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">NIKE app
+                            </h3>
+                            <p class="project-description">NIKE App</p>
+                            <div class="project-actions">
+                                <a href="https://real-nike.vercel.app/" target="_blank" class="btn btn-project">Live
+                                    Demo <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="project-card" style="animation-delay: 0.3s;">
+                        <img src="./images/5327776179458609502.jpg" alt="Скриншот Проекта 3" class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Bugatti App</h3>
+                            <p class="project-description">NIKE App</p>
+                            <div class="project-actions">
+                                <a href="https://bugatti-nine.vercel.app/" target="_blank" class="btn btn-project">Live
+                                    Demo <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" style="animation-delay: 0.3s;">
+                        <img src="./images/5330027979272293149.jpg" alt="Скриншот Проекта 3" class="project-screenshot">
+                        <div class="project-info">
+                            <h3 class="project-title">Lamborgini App</h3>
+                            <p class="project-description">Globe Trotter App yordamida siz online chiptalar sotib
+                                olishingiz mumkin.</p>
+                            <div class="project-actions">
+                                <a href="https://lamba-axaz.vercel.app/" target="_blank" class="btn btn-project">Live
+                                    Demo <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills-section section-padding animated-section">
+            <div class="container">
+                <h2 class="section-title">Навыки</h2>
+                <div class="skills-grid">
+                    <div class="skill-item" style="animation-delay: 0.1s;">
+                        <i class="fab fa-js-square skill-icon"></i>
+                        <span class="skill-name">JavaScript</span>
+                    </div>
+                    <div class="skill-item" style="animation-delay: 0.2s;">
+                        <i class="fas fa-code skill-icon"></i> <!-- TypeScript icon is tricky, using generic code -->
+                        <span class="skill-name">TypeScript</span>
+                    </div>
+                    <div class="skill-item" style="animation-delay: 0.3s;">
+                        <i class="fab fa-react skill-icon"></i>
+                        <span class="skill-name">React</span>
+                    </div>
+                    <div class="skill-item" style="animation-delay: 0.5s;">
+                        <img src="./images/png-transparent-tailwind-css-hd-logo-removebg-preview.png" alt="Tailwind CSS"
+                            class="skill-icon tailwind-icon">
+                        <span class="skill-name">Tailwind CSS</span>
+                    </div>
+                    <div class="skill-item" style="animation-delay: 0.6s;">
+                        <i class="fab fa-git-alt skill-icon"></i>
+                        <span class="skill-name">Git</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section section-padding animated-section">
+            <div class="container contact-content">
+                <h2 class="section-title">Связаться со мной</h2>
+                <p class="contact-text">Я открыт для новых возможностей и коллабораций. Если у вас есть предложение или
+                    просто хотите пообщаться, не стесняйтесь!</p>
+                <div class="contact-links">
+                    <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank" class="contact-link">
+                        <i class="fab fa-telegram-plane"></i> t.me/AlisherovNurmuhammad_dev
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer animated-section">
+        <div class="container">
+            <p>&copy; 2024 Нурмухаммад. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

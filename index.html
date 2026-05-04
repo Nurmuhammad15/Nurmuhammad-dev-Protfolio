@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nurmuhammad | Frontend Developer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+
+<body>
+
+  <!-- Cursor glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container nav-container">
+      <a href="#home" class="logo">
+        <span class="logo-bracket">&lt;</span>NM<span class="logo-bracket">/&gt;</span>
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link">Bosh sahifa</a></li>
+          <li><a href="#about" class="nav-link">Men haqimda</a></li>
+          <li><a href="#skills" class="nav-link">Ko'nikmalar</a></li>
+          <li><a href="#projects" class="nav-link">Loyihalar</a></li>
+          <li><a href="#contact" class="nav-link">Aloqa</a></li>
+        </ul>
+        <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank" class="btn btn-tg mobile-only">
+          <i class="fab fa-telegram-plane"></i> Telegram
+        </a>
+      </nav>
+      <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank" class="btn btn-tg desktop-only">
+        <i class="fab fa-telegram-plane"></i> Bog'lanish
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="home" class="hero-section">
+      <div class="hero-bg-grid"></div>
+      <div class="container hero-content">
+        <div class="hero-badge reveal-up" style="--delay:0s">
+          <span class="badge-dot"></span> Ishga tayyor · Frontend Developer
+        </div>
+        <h1 class="hero-name reveal-up" style="--delay:0.15s">
+          Nurmuhammad<span class="accent-dot">.</span>
+        </h1>
+        <p class="hero-subtitle reveal-up" style="--delay:0.3s">
+          React · TypeScript · Tailwind · Figma · Photoshop
+        </p>
+        <p class="hero-desc reveal-up" style="--delay:0.45s">
+          Zamonaviy, tez va chiroyli web-ilovalar yaratuvchi frontend dasturchi.
+          Har bir piksel muhim — dizayndan kodgacha.
+        </p>
+        <div class="hero-actions reveal-up" style="--delay:0.6s">
+          <a href="#projects" class="btn btn-primary">Loyihalarni ko'rish <i class="fas fa-arrow-right"></i></a>
+          <a href="#contact" class="btn btn-ghost">Bog'lanish</a>
+        </div>
+        <div class="social-links reveal-up" style="--delay:0.75s">
+          <a href="https://github.com/AlisherovNurmuhammad" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+          <a href="mailto:nurmuhammad@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Pastga aylantiring</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+  
+    <!-- SKILLS -->
+    <section id="skills" class="skills-section section-pad">
+      <div class="container">
+        <div class="section-label center reveal-up">Ko'nikmalar</div>
+        <h2 class="section-heading center reveal-up">Ishlatadigan <span class="accent">texnologiyalar</span></h2>
+        <div class="skills-grid">
+          <div class="skill-card reveal-up" style="--delay:0.05s">
+            <div class="skill-icon"><i class="fab fa-html5"></i></div>
+            <span class="skill-name">HTML5</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-card reveal-up" style="--delay:0.1s">
+            <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+            <span class="skill-name">CSS3</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-card reveal-up" style="--delay:0.15s">
+            <div class="skill-icon"><i class="fab fa-js-square"></i></div>
+            <span class="skill-name">JavaScript</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-card reveal-up" style="--delay:0.2s">
+            <div class="skill-icon ts-icon">TS</div>
+            <span class="skill-name">TypeScript</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div>
+          </div>
+          <div class="skill-card reveal-up" style="--delay:0.25s">
+            <div class="skill-icon"><i class="fab fa-react"></i></div>
+            <span class="skill-name">React</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:80%"></div></div>
+          </div>
+          <div class="skill-card reveal-up" style="--delay:0.3s">
+            <div class="skill-icon tw-icon">TW</div>
+            <span class="skill-name">Tailwind CSS</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:88%"></div></div>
+          </div>
+          <div class="skill-card reveal-up" style="--delay:0.35s">
+            <div class="skill-icon"><i class="fab fa-figma"></i></div>
+            <span class="skill-name">Figma</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:78%"></div></div>
+          </div>
+          <div class="skill-card reveal-up" style="--delay:0.4s">
+            <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
+            <span class="skill-name">Git / GitHub</span>
+            <div class="skill-bar"><div class="skill-fill" style="--w:82%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="projects-section section-pad">
+      <div class="container">
+        <div class="section-label center reveal-up">Loyihalar</div>
+        <h2 class="section-heading center reveal-up">Mening <span class="accent">ishlarim</span></h2>
+
+        <!-- Filter tabs -->
+        <div class="filter-tabs reveal-up">
+          <button class="filter-btn active" data-filter="all">Barchasi</button>
+          <button class="filter-btn" data-filter="app">Ilovalar</button>
+          <button class="filter-btn" data-filter="landing">Landing</button>
+          <button class="filter-btn" data-filter="dashboard">Dashboard</button>
+        </div>
+
+        <div class="projects-grid">
+
+          <div class="project-card reveal-up" style="--delay:0.05s" data-category="app">
+            <div class="project-img-wrap">
+              <img src="./images/50b0fb4a-65dd-432d-ac7b-1046d479f4c2.png" alt="Asia Mobile" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://asia-mobile2.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+              </div>
+              <h3 class="project-title">Asia Mobile</h3>
+              <p class="project-description">Zamonaviy telefon do'koni sayti. Qulay navigatsiya va chiroyli dizayn.</p>
+              <a href="https://asia-mobile2.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.1s" data-category="landing">
+            <div class="project-img-wrap">
+              <img src="./images/ee446d89-a9a3-426a-bd9d-60a33b0e09f4.png" alt="Yasmin Gold" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://yasmin-gold-chi.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Animations</span>
+              </div>
+              <h3 class="project-title">Yasmin Gold</h3>
+              <p class="project-description">Minimalistik va zamonaviy dizayndagi zargarlik do'koni sayti.</p>
+              <a href="https://yasmin-gold-chi.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.15s" data-category="dashboard">
+            <div class="project-img-wrap">
+              <img src="./images/b383de63-06cb-4512-855c-7dc86074ab36 (1).jpg" alt="Dash Board" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://tp-tau-nine.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">React</span><span class="tag">Dashboard</span>
+              </div>
+              <h3 class="project-title">Dash Board</h3>
+              <p class="project-description">Biznesmenlar uchun hisob-kitobni osonlashtiruvchi boshqaruv paneli.</p>
+              <a href="https://tp-tau-nine.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.2s" data-category="app">
+            <div class="project-img-wrap">
+              <img src="./images/photo_5404579686585072715_y.jpg" alt="Cosmetic App" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://cosmetic-app-4h57.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+              </div>
+              <h3 class="project-title">Cosmetic App</h3>
+              <p class="project-description">Minimalistik va funktsional kosmetika ilovasi — chiroyli dizayn.</p>
+              <a href="https://cosmetic-app-4h57.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.25s" data-category="app">
+            <div class="project-img-wrap">
+              <img src="./images/photo_5404579686585072695_w.jpg" alt="Cosmic App" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://cosmic-app-eta.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">3D</span><span class="tag">Animations</span>
+              </div>
+              <h3 class="project-title">Cosmic App</h3>
+              <p class="project-description">3D animatsiyalar va murakkab CSS effektlari bilan yaratilgan koinot ilovasi.</p>
+              <a href="https://cosmic-app-eta.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.3s" data-category="app">
+            <div class="project-img-wrap">
+              <img src="./images/photo_5404579686585072750_y.jpg" alt="Globe Trotter" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://avia-sells-app.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+              </div>
+              <h3 class="project-title">Globe Trotter App</h3>
+              <p class="project-description">Online aviabilet sotib olish imkonini beruvchi sayohat ilovasi.</p>
+              <a href="https://avia-sells-app.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.35s" data-category="landing">
+            <div class="project-img-wrap">
+              <img src="./images/5325721389794790600.jpg" alt="Nike App" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://real-nike.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+              </div>
+              <h3 class="project-title">NIKE App</h3>
+              <p class="project-description">Nike brendining zamonaviy va dinamik mahsulot taqdimot sayti.</p>
+              <a href="https://real-nike.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.4s" data-category="landing">
+            <div class="project-img-wrap">
+              <img src="./images/5327776179458609502.jpg" alt="Bugatti App" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://bugatti-nine.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+              </div>
+              <h3 class="project-title">Bugatti App</h3>
+              <p class="project-description">Bugatti avtomobillari uchun ultra-premium vizual tajriba sayti.</p>
+              <a href="https://bugatti-nine.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.45s" data-category="landing">
+            <div class="project-img-wrap">
+              <img src="./images/5330027979272293149.jpg" alt="Lamborghini App" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://lamba-axaz.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+              </div>
+              <h3 class="project-title">Lamborghini App</h3>
+              <p class="project-description">Lamborghini avtomobillarini namoyish etuvchi sport-stil landing sahifasi.</p>
+              <a href="https://lamba-axaz.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.5s" data-category="landing">
+            <div class="project-img-wrap">
+              <img src="./images/5449383230642524141.jpg" alt="LALI Restaurant" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://lali-phi.vercel.app/" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Animations</span>
+              </div>
+              <h3 class="project-title">LALI Restaurant</h3>
+              <p class="project-description">LALI restoran uchun chiroyli animatsiyalar va qulay funksiyalar bilan yaratilgan sayт.</p>
+              <a href="https://lali-phi.vercel.app/" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-card reveal-up" style="--delay:0.55s" data-category="landing">
+            <div class="project-img-wrap">
+              <img src="./images/5449383230642524153.jpg" alt="GRADO Restaurant" loading="lazy">
+              <div class="project-overlay">
+                <a href="#" target="_blank" class="overlay-btn">
+                  <i class="fas fa-external-link-alt"></i> Ko'rish
+                </a>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Animations</span>
+              </div>
+              <h3 class="project-title">GRADO Restaurant</h3>
+              <p class="project-description">GRADO restoran uchun premium dizayn va zamonaviy animatsiyalar bilan qurilgan sayт.</p>
+              <a href="#" target="_blank" class="project-link">
+                Live Demo <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE / TIMELINE -->
+    <section id="experience" class="experience-section section-pad">
+      <div class="container">
+        <div class="section-label center reveal-up">Tajriba</div>
+        <h2 class="section-heading center reveal-up">O'sish <span class="accent">yo'lim</span></h2>
+        <div class="timeline">
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-date">2026 — Hozir</span>
+              <h3>Frontend Developer</h3>
+              <p>React, TypeScript va Tailwind CSS yordamida murakkab web-ilovalar yaratish. Figma dizaynlarini to'liq ishchi saytga aylantirish.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-date">2025</span>
+              <h3>Freelance Projects</h3>
+              <p>Turli mijozlar uchun 10+ loyiha yaratdim — restoranlar, onlayn do'konlar, korporativ saytlar.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-date">2024</span>
+              <h3>Web Development o'rganish</h3>
+              <p>HTML, CSS, JavaScript asoslarini o'zlashtirdim. Birinchi real loyihalarimni yaratdim va Vercel'ga deploy qildim.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section section-pad">
+      <div class="container">
+        <div class="contact-box reveal-up">
+          <div class="section-label">Aloqa</div>
+          <h2 class="section-heading">Birgalikda <span class="accent">ishlaylik</span></h2>
+          <p class="contact-text">
+            Yangi imkoniyatlarga ochiqman. Loyiha yoki hamkorlik bo'yicha taklif bo'lsa — murojaat qiling!
+          </p>
+          <div class="contact-links">
+            <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank" class="contact-link">
+              <i class="fab fa-telegram-plane"></i>
+              <div>
+                <span class="cl-label">Telegram</span>
+                <span class="cl-val">@AlisherovNurmuhammad_dev</span>
+              </div>
+            </a>
+            <a href="https://github.com/AlisherovNurmuhammad" target="_blank" class="contact-link">
+              <i class="fab fa-github"></i>
+              <div>
+                <span class="cl-label">GitHub</span>
+                <span class="cl-val">AlisherovNurmuhammad</span>
+              </div>
+            </a>
+            <a href="mailto:nurmuhammad@example.com" class="contact-link">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <span class="cl-label">Email</span>
+                <span class="cl-val">nurmuhammad@example.com</span>
+              </div>
+            </a>
+          </div>
+          <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank" class="btn btn-primary contact-cta">
+            Telegram orqali yozing <i class="fab fa-telegram-plane"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="logo"><span class="logo-bracket">&lt;</span>NM<span class="logo-bracket">/&gt;</span></span>
+      <p>&copy; 2025 Nurmuhammad Alisherov. Barcha huquqlar himoyalangan.</p>
+      <div class="footer-socials">
+        <a href="https://github.com/AlisherovNurmuhammad" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://t.me/AlisherovNurmuhammad_dev" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crazy Book Store - Онлайн Китоб Дўкони</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="animated-background"></div>
+
+    <header class="main-header">
+        <h1 class="store-title">Crazy Book Store</h1>
+        <div class="cart-icon-container">
+            <i class="fas fa-shopping-cart cart-icon"></i>
+            <span class="cart-count">0</span>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <!-- Китоблар рўйхати экрани -->
+        <section id="book-list-view" class="book-list-view active">
+            <h2 class="section-title">Сўнгги Нашрлар</h2>
+
+            <!-- Қидирув майдончаси -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Китоб номи ёки муаллифни қидириш..." aria-label="Search for books">
+                <button id="searchButton"><i class="fas fa-search"></i> Қидириш</button>
+            </div>
+
+            <div class="book-grid">
+                <!-- Китоб карточкалари JS орқали шу ерга қўшилади -->
+            </div>
+        </section>
+
+        <!-- Китоб деталлари экрани -->
+        <section id="book-detail-view" class="book-detail-view">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Рўйхатга қайтиш</button>
+            <div class="detail-content">
+                <div class="detail-image-wrapper">
+                    <img src="" alt="Book Cover" class="detail-book-cover">
+                </div>
+                <div class="detail-info">
+                    <h2 class="detail-title"></h2>
+                    <p class="detail-author"></p>
+                    <div class="detail-rating"></div>
+                    <p class="detail-price"></p>
+                    <p class="detail-description"></p>
+                    <button class="add-to-cart-btn">
+                        <i class="fas fa-cart-plus"></i> Саватга қўшиш
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Конфетти учун Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>

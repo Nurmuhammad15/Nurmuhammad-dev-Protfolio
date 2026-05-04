@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Statistic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-shape"></div>
+    
+    <div class="container">
+        <div class="header">Homework Statistic</div>
+
+        <!-- Login Page -->
+        <div id="loginPage" class="login-container">
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="user-type-selector">
+                <button class="user-type-btn active" onclick="selectUserType('student')">Students</button>
+                <button class="user-type-btn" onclick="selectUserType('teacher')">Teacher</button>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="loginInput" placeholder="Log In">
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="passwordInput" placeholder="Password">
+            </div>
+
+            <button class="submit-btn" onclick="handleLogin()">SUBMIT</button>
+        </div>
+
+        <!-- Teacher Panel -->
+        <div id="teacherPanel" class="teacher-panel">
+            <div class="panel-header">
+                <div class="panel-title">📚 Панель Учителя</div>
+                <button class="logout-btn" onclick="logout()">Выход</button>
+            </div>
+            <div id="groupsContainer"></div>
+        </div>
+
+        <!-- Student Page -->
+        <div id="studentPage" class="student-page">
+            <div class="student-welcome">
+                <h2 id="studentNameDisplay"></h2>
+                <p style="color: #868e96;">Добро пожаловать!</p>
+            </div>
+            <div class="student-info" id="studentInfo"></div>
+            <button class="submit-btn" style="margin-top: 30px;" onclick="logout()">Выход</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

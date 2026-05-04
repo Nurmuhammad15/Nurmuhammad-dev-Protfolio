@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Statista </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<style>
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --bg: #0f172a;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --text: #f1f5f9;
+  --accent: #06b6d4;
+  --danger: #ef4444;
+  --success: #22c55e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+header {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  text-transform: uppercase;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Анимация появления контента */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.view-section {
+  animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary { background: var(--primary); color: white; width: 100%; font-size: 16px; }
+.primary:hover { background: var(--primary-hover); box-shadow: 0 0 15px var(--primary); }
+
+.secondary { background: #475569; color: white; }
+.danger { background: var(--danger); color: white; }
+
+.back {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.back:hover { background: var(--accent); color: #000; }
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.green { background: rgba(34, 197, 94, 0.2); color: var(--success); border: 1px solid var(--success); }
+.red { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 15px;
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+input[type=file] { display: none; }
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+h3 { color: var(--accent); margin-top: 0; }
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+</style>
+</head>
+
+<body>
+<header>Student Statista</header>
+<div class="container" id="app"></div>
+
+<script>
+/* ================= FIREBASE ================= */
+firebase.initializeApp({
+  apiKey: "AIzaSyDJDVZazGiEUshVicJX8ObvxIjDPgA5rTo",
+  authDomain: "studentstatista.firebaseapp.com",
+  databaseURL: "https://studentstatista-default-rtdb.firebaseio.com",
+  projectId: "studentstatista"
+});
+const db = firebase.database();
+const IMGBB_KEY = "be4e74e3246530deeb9dd1d7cfb31a3d";
+
+> Alisherov Nurmuhammad:
+const TASKS = ["Dictation","Reading Test Bank","Podcast","Writing task 1","Writing task 2","Speaking Part 1","Speaking Part 2","Speaking Part 3","Listening Strategies","Listening Practice","Reading Practice","Listening Made easy","Cambridge Listening","Cambridge Reading","Cambridge Writing","TED Podcasts","Vocab for ielts book","Article"];
+
+const GROUPS = {
+ "GROUP IELTS M/W/F 9:00":["HOSHIMOVA NILUFAR","JURAYEVA AZIZA","MAHMUDOV SUNNAT","MUHIDDINOVA MAHBUBA","NORBOYEV SHOHJAXON","OCHILOV LOCHINBEK","ORALOVA SHOHINUR","RAVSHANOVA ZAYNAB","TOSHPULATOV ABBOS"],
+ "GROUP IELTS 17:00 MWF":["ABDURAHIMOVA ZILOLA","ALIMOV BEHRUZ","ANVAROVA RUXSHONA","ASADOV SARDOR","BAXRONOVA FAYRUZA","GAFURJONOV ULUGBEK","ISMOILOV ISMOIL","JULIBOYEVA ZEBO","KOZIMJONOVA DURDONA","QIZIMELIKUZIYEVA RUXSHONA","NIGMATOV ABDURAHIM","RAHMATULLAYEV BEXRUZ","TALABOV SAUD","XISLATULLAYEV JAVOXIR","XODJAYEVA LAZIZA","YORMATOV MIRABROR"],
+ "GROUP CEFR 15:30 MWF":["ABDUGAFFAROVA MANZURA","ISROILOV ISMOIL","JORABEKOV AZIZBEK","NORBOYEVA YULDUZ","TULKUNOVA EZOZA","XURSANBEKOVA AZIZA"],
+ "GROUP IELTS T/T/S 9:00":["SAIDUSMONOVA MADINA","SOBIROVA MARJONA","TILLAYEV OYBEK","TOSHTEMIROVA MUBORAK","UMAROVA MOXIGUL"],
+ "GROUP IELTS 10:30 TTS":["ADXAMOVA MUBINA","BAXTIYOROVA NILUFAR","ISAMATOVA LAYLO","NOSIROVA LAZIZA","QILICHOVA GULISTON"],
+ "GROUP IELTS T/T/S 14:00":["ABDUAZIZOVA HABIBA","ABDUJABBOROVA LOLA","ABDUVALIYEVA OMINA","ALISHEROV NURMUHAMMAD","DJURAYEVA NURGUL","ISLOMBEKOVA EZOZA","ISMAILOVA EZOZA","JORABEKOV AFZALBEK","MAHMUDJONOV FAYZULLOH","MIRAHMEDOVA MUSLIMA","OLIMJONOVA DILNURA","TOJIBOYEV MUXAMMAD","UROLOV SIROJ","XUDOYBERDIYEV QOSIMBEK"],
+ "GROUP IELTS 15:30 TTS":["ABUBAKIROVA RAHIMA","IMANKULOVA CHAROS","ISLOMXOJAYEV YUNUS","KAYUMKHAJAYEVA JASMINA","MAVLONBEKOV NURMUHAMMAD","MIRAXMEDOVA ROBIYA","MIRSAIDOVA MALIKA","MIRSODIQOV MIRABROR","QODIROV ABDUVALI","QOSIMOVA NARGIZA","RAVSHANOVA MUSLIMA","SHARAXMEDOVA KAMILA","SHERALIYEV ELSHOD","TOGAYEVA SHAXINA","UMARXONOVA JAVOHIRPOSHSHA","YOLDASHEVA FARZONA","ZOIRXOJAYEVA ROBIYA"]
+};
+
+const app = document.getElementById("app");
+
+function render(html) {
+  app.innerHTML = <div class="view-section">${html}</div>;
+}
+
+/* ================= HOME ================= */
+function home(){
+ render(
+  <div style="text-align:center; padding: 40px 0;">
+    <h2 style="margin-bottom:30px">Welcome to Portal</h2>
+    <div class="card"><button class="primary" onclick="student()">🚀 Enter as Student</button></div>
+    <div class="card"><button class="secondary" style="width:100%" onclick="login()">🛠 Teacher Panel</button></div>
+  </div>
+ );
+}
+
+/* ================= STUDENT ================= */
+function student(){
+ let h = <button class="back" onclick="home()">← Back</button><h3>Select your group</h3>;
+ Object.keys(GROUPS).forEach(g => {
+  h += <div class="card"><button class="primary" onclick="students('${g}')">${g}</button></div>;
+ });
+ render(h);
+}
+
+function students(group){
+ let h = <button class="back" onclick="student()">← Back</button><h3>${group}</h3>;
+ GROUPS[group].forEach(s => {
+  h += <div class="card"><button class="primary" onclick="tasks('${group}','${s}')">👤 ${s}</button></div>;
+ });
+ render(h);
+}
+
+async function tasks(group, studentName) {
+  render(<button class="back" onclick="students('${group}')">← Back</button><h3>${studentName}</h3><div id="taskList">Loading...</div>);
+  const list = document.getElementById("taskList");
+  let h = "";
+  
+  for (let t of TASKS) {
+    const snap = await db.ref(`submissions/${group}/${studentName}/${t}`).once("value");
+    const d = snap.val();
+    h += 
+      <div class="card task">
+       <div style="flex:1">
+        <b style="font-size:18px">${t}</b><br><br>
+        <span class="status-badge ${d ? 'green' : 'red'}">${d ? '✓ Submitted' : '✕ Pending'}</span>
+        ${d && d.fileUrl ? `<br><img src="${d.fileUrl}">` : ''}
+</div>
+       <div>
+        <label class="primary" style="cursor:pointer; padding: 10px 20px; border-radius:10px">
+         📤 ${d ? 'Resubmit' : 'Submit Photo'}
+         <input type="file" accept="image/*" onchange="submitTask(this,'${group}','${studentName}','${t}')">
+        </label>
+       </div>
+      </div>;
+  }
+  list.innerHTML = h;
+}
+
+async function submitTask(input, group, student, task) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const btn = input.parentElement;
+  btn.innerHTML = "Uploading...";
+  btn.style.opacity = "0.5";
+
+  const fd = new FormData();
+  fd.append("image", file);
+
+  try {
+    const res = await fetch(https://api.imgbb.com/1/upload?key=${IMGBB_KEY}, { method: "POST", body: fd });
+    const json = await res.json();
+    if (json.success) {
+      await db.ref(submissions/${group}/${student}/${task}).set({
+        fileUrl: json.data.url,
+        submitted: true,
+        time: Date.now()
+      });
+      alert("Success! 🎉");
+      tasks(group, student);
+    }
+  } catch (e) {
+    alert("Upload failed.");
+    tasks(group, student);
+  }
+}
+
+/* ================= ADMIN ================= */
+function login(){
+ const u=prompt("Login:");
+ const p=prompt("Password:");
+ if((u==="Teacher1"&&p==="Admin1")||(u==="Assistant1"&&p==="Admin2")) admin();
+ else alert("Access Denied");
+}
+
+function admin(){
+ let h = `<button class="back" onclick="home()">← Back</button><h3>Admin Dashboard</h3><div class="admin-grid">`;
+ Object.keys(GROUPS).forEach(g=>{
+  h+=
+   `<div class="card">
+    <b style="color:var(--accent)">${g}</b><br><br>
+    <div style="display:flex; flex-direction:column; gap:8px">
+      <button class="primary" onclick="openGroup('${g}')">📂 Open</button>
+      <button class="secondary" onclick="exportCSV('${g}')">📊 Export CSV</button>
+      <button class="danger" onclick="clearGroup('${g}')">🗑 Reset</button>
+    </div>
+   </div>`;
+ });
+ h+= `</div>`;
+ render(h);
+}
+
+function openGroup(group){
+  render(`<button class="back" onclick="admin()">← Back</button><h3>Monitoring: ${group}</h3><div id="adminList"></div>`);
+  const list = document.getElementById("adminList");
+
+  GROUPS[group].forEach(student => {
+    const block = document.createElement("div");
+    block.className = "card";
+    block.innerHTML = `<b style="font-size:18px; color:var(--accent)">${student}</b><hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0">`; 
+
+    TASKS.forEach(task => {
+      db.ref(`submissions/${group}/${student}/${task}`).once("value").then(snap => {
+        const d = snap.val();
+        const hasFile = d && d.fileUrl;
+        block.innerHTML += 
+          `<div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px">
+            <span>${task}</span>
+            <span>
+              <span class="status-badge ${hasFile ? 'green' : 'red'}" style="font-size:10px">${hasFile ? 'YES' : 'NO'}</span>
+              ${hasFile ? `<button style="padding:2px 8px; font-size:10px; margin-left:5px" onclick="window.open('${d.fileUrl}','_blank')">View</button>` : ''}
+            </span>
+          </div>`;
+      });
+    });
+    list.appendChild(block);
+  });
+}
+
+function clearGroup(group) {
+  if (confirm(`⚠️ DELETE ALL DATA FOR ${group}?`)) {
+    db.ref(`submissions/${group}`).remove().then(() => { alert("Cleared!"); admin(); });
+  }
+}
+
+function exportCSV(group){
+ db.ref(`submissions/${group}`).once("value",snap=>{
+  let data=snap.val()||{};
+  let csv=["Student,"+TASKS.join(",")];
+  GROUPS[group].forEach(s=>{
+   let row=[s];
+   TASKS.forEach(t=>{ row.push(data[s]&&data[s][t]?"Yes":"No"); });
+   csv.push(row.join(","));
+  });
+  let blob=new Blob([csv.join("\n")],{type:"text/csv"});
+  let a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=group+".csv";
+  a.click();
+ });
+}
+
+home();
+</script>
+</body>
+</html>
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary { background: var(--primary); color: white; width: 100%; font-size: 16px; }
+.primary:hover { background: var(--primary-hover); box-shadow: 0 0 15px var(--primary); }
+
+.secondary { background: #475569; color: white; }
+.danger { background: var(--danger); color: white; }
+
+.back {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.back:hover { background: var(--accent); color: #000; }
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.green { background: rgba(34, 197, 94, 0.2); color: var(--success); border: 1px solid var(--success); }
+.red { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 15px;
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+input[type=file] { display: none; }
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+h3 { color: var(--accent); margin-top: 0; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+</style>
+</head>
+
+<body>
+<header>Student Statista</header>
+<div class="container" id="app"></div>
+
+<script>
+/* ================= CONFIG ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyDJDVZazGiEUshVicJX8ObvxIjDPgA5rTo",
+  authDomain: "studentstatista.firebaseapp.com",
+  databaseURL: "https://studentstatista-default-rtdb.firebaseio.com"
+  projectId: "studentstatista"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const IMGBB_KEY = "be4e74e3246530deeb9dd1d7cfb31a3d";
+
+> Alisherov Nurmuhammad:
+const TASKS = ["Dictation","Reading Test Bank","Podcast","Writing task 1","Writing task 2","Speaking Part 1","Speaking Part 2","Speaking Part 3","Listening Strategies","Listening Practice","Reading Practice","Listening Made easy","Cambridge Listening","Cambridge Reading","Cambridge Writing","TED Podcasts","Vocab for ielts book","Article"];
+
+const GROUPS = {
+ "GROUP IELTS M/W/F 9:00":["HOSHIMOVA NILUFAR","JURAYEVA AZIZA","MAHMUDOV SUNNAT","MUHIDDINOVA MAHBUBA","NORBOYEV SHOHJAXON","OCHILOV LOCHINBEK","ORALOVA SHOHINUR","RAVSHANOVA ZAYNAB","TOSHPULATOV ABBOS"],
+ "GROUP IELTS 17:00 MWF":["ABDURAHIMOVA ZILOLA","ALIMOV BEHRUZ","ANVAROVA RUXSHONA","ASADOV SARDOR","BAXRONOVA FAYRUZA","GAFURJONOV ULUGBEK","ISMOILOV ISMOIL","JULIBOYEVA ZEBO","KOZIMJONOVA DURDONA","QIZIMELIKUZIYEVA RUXSHONA","NIGMATOV ABDURAHIM","RAHMATULLAYEV BEXRUZ","TALABOV SAUD","XISLATULLAYEV JAVOXIR","XODJAYEVA LAZIZA","YORMATOV MIRABROR"],
+ "GROUP CEFR 15:30 MWF":["ABDUGAFFAROVA MANZURA","ISROILOV ISMOIL","JORABEKOV AZIZBEK","NORBOYEVA YULDUZ","TULKUNOVA EZOZA","XURSANBEKOVA AZIZA"],
+ "GROUP IELTS T/T/S 9:00":["SAIDUSMONOVA MADINA","SOBIROVA MARJONA","TILLAYEV OYBEK","TOSHTEMIROVA MUBORAK","UMAROVA MOXIGUL"],
+ "GROUP IELTS 10:30 TTS":["ADXAMOVA MUBINA","BAXTIYOROVA NILUFAR","ISAMATOVA LAYLO","NOSIROVA LAZIZA","QILICHOVA GULISTON"],
+ "GROUP IELTS T/T/S 14:00":["ABDUAZIZOVA HABIBA","ABDUJABBOROVA LOLA","ABDUVALIYEVA OMINA","ALISHEROV NURMUHAMMAD","DJURAYEVA NURGUL","ISLOMBEKOVA EZOZA","ISMAILOVA EZOZA","JORABEKOV AFZALBEK","MAHMUDJONOV FAYZULLOH","MIRAHMEDOVA MUSLIMA","OLIMJONOVA DILNURA","TOJIBOYEV MUXAMMAD","UROLOV SIROJ","XUDOYBERDIYEV QOSIMBEK"],
+ "GROUP IELTS 15:30 TTS":["ABUBAKIROVA RAHIMA","IMANKULOVA CHAROS","ISLOMXOJAYEV YUNUS","KAYUMKHAJAYEVA JASMINA","MAVLONBEKOV NURMUHAMMAD","MIRAXMEDOVA ROBIYA","MIRSAIDOVA MALIKA","MIRSODIQOV MIRABROR","QODIROV ABDUVALI","QOSIMOVA NARGIZA","RAVSHANOVA MUSLIMA","SHARAXMEDOVA KAMILA","SHERALIYEV ELSHOD","TOGAYEVA SHAXINA","UMARXONOVA JAVOHIRPOSHSHA","YOLDASHEVA FARZONA","ZOIRXOJAYEVA ROBIYA"]
+};
+
+const app = document.getElementById("app");
+
+function render(html) {
+  app.innerHTML = <div class="view-section">${html}</div>;
+}
+
+/* ================= HOME ================= */
+function home(){
+ render(
+  <div style="text-align:center; padding: 40px 0;">
+    <h2 style="margin-bottom:30px">Welcome to Portal</h2>
+    <div class="card"><button class="primary" onclick="student()">🚀 Enter as Student</button></div>
+    <div class="card"><button class="secondary" style="width:100%" onclick="login()">🛠 Teacher Panel</button></div>
+  </div>
+ );
+}
+
+/* ================= STUDENT ================= */
+function student(){
+ let h = <button class="back" onclick="home()">← Back</button><h3>Select your group</h3>;
+ Object.keys(GROUPS).forEach(g => {
+  h += <div class="card"><button class="primary" onclick="students('${g}')">${g}</button></div>;
+ });
+ render(h);
+}
+
+function students(group){
+ let h = <button class="back" onclick="student()">← Back</button><h3>${group}</h3>;
+ GROUPS[group].forEach(s => {
+  h += <div class="card"><button class="primary" onclick="tasks('${group}','${s}')">👤 ${s}</button></div>;
+ });
+ render(h);
+}
+
+async function tasks(group, studentName) {
+  render(<button class="back" onclick="students('${group}')">← Back</button><h3>${studentName}</h3><div id="taskList">Loading...</div>);
+  const list = document.getElementById("taskList");
+  let h = "";
+  
+  // Получаем все данные одним запросом для производительности
+  const snap = await db.ref(submissions/${group}/${studentName}).once("value");
+  const data = snap.val() || {};
+
+  TASKS.forEach(t => {
+    const d = data[t];
+    h += `
+      <div class="card task">
+       <div style="flex:1">
+        <b style="font-size:18px">${t}</b><br><br>
+        <span class="status-badge ${d ? 'green' : 'red'}">${d ? '✓ Submitted' : '✕ Pending'}</span>
+
+> Alisherov Nurmuhammad:
+${d && d.fileUrl ? <br><img src="${d.fileUrl}"> : ''}
+       </div>
+       <div>
+        <label class="primary" style="cursor:pointer; padding: 10px 20px; border-radius:10px">
+         📤 ${d ? 'Resubmit' : 'Submit Photo'}
+         <input type="file" accept="image/*" onchange="submitTask(this,'${group}','${studentName}','${t}')">
+        </label>
+       </div>
+      </div>;
+  });
+  list.innerHTML = h;
+}
+
+async function submitTask(input, group, student, task) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const btn = input.parentElement;
+  const originalText = btn.innerHTML;
+  btn.innerText = "Uploading...";
+  btn.style.pointerEvents = "none";
+  btn.style.opacity = "0.5";
+
+  const fd = new FormData();
+  fd.append("image", file);
+
+  try {
+    const res = await fetch(https://api.imgbb.com/1/upload?key=${IMGBB_KEY}, { method: "POST", body: fd });
+    const json = await res.json();
+    if (json.success) {
+      await db.ref(submissions/${group}/${student}/${task}).set({
+        fileUrl: json.data.url,
+        submitted: true,
+        time: Date.now()
+      });
+      alert("Success! 🎉");
+    } else {
+        throw new Error("API Error");
+    }
+  } catch (e) {
+    alert("Upload failed. Please try again.");
+  } finally {
+    tasks(group, student); // Обновляем список в любом случае
+  }
+}
+
+/* ================= ADMIN ================= */
+function login(){
+ const u = prompt("Login:");
+ const p = prompt("Password:");
+ if((u === "Teacher1" && p === "Admin1") || (u === "Assistant1" && p === "Admin2")) {
+     admin();
+ } else {
+     alert("Access Denied");
+ }
+}
+
+function admin(){
+ let h = <button class="back" onclick="home()">← Back</button><h3>Admin Dashboard</h3><div class="admin-grid">;
+ Object.keys(GROUPS).forEach(g => {
+  h += 
+   <div class="card">
+    <b style="color:var(--accent)">${g}</b><br><br>
+    <div style="display:flex; flex-direction:column; gap:8px">
+      <button class="primary" onclick="openGroup('${g}')">📂 Open</button>
+      <button class="secondary" onclick="exportCSV('${g}')">📊 Export CSV</button>
+      <button class="danger" onclick="clearGroup('${g}')">🗑 Reset</button>
+    </div>
+   </div>;
+ });
+ h += </div>;
+ render(h);
+}
+
+// ИСПРАВЛЕНИЕ: Используем асинхронность правильно для отрисовки статусов заданий
+async function openGroup(group){
+  render(<button class="back" onclick="admin()">← Back</button><h3>Monitoring: ${group}</h3><div id="adminList">Loading group data...</div>);
+  const list = document.getElementById("adminList");
+  
+  // Получаем все данные группы сразу
+  const snap = await db.ref(submissions/${group}).once("value");
+  const groupData = snap.val() || {};
+
+  let html = "";
+  GROUPS[group].forEach(student => {
+    const studentData = groupData[student] || {};
+    let taskStats = "";
+
+    TASKS.forEach(task => {
+      const d = studentData[task];
+      const hasFile = d && d.fileUrl;
+      taskStats += 
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px">
+          <span>${task}</span>
+          <span>
+            <span class="status-badge ${hasFile ? 'green' : 'red'}" style="font-size:10px">${hasFile ? 'YES' : 'NO'}</span>
+            ${hasFile ? <button style="padding:2px 8px; font-size:10px; margin-left:5px" onclick="window.open('${d.fileUrl}','_blank')">View</button> : ''}
+          </span>
+        </div>
+      ;
+    });
+
+    html += 
+      <div class="card">
+        <b style="font-size:18px; color:var(--accent)">${student}</b>
+        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0">
+        ${taskStats}
+      </div>;
+  });
+  list.innerHTML = html;
+}
+
+function clearGroup(group) {
+  if (confirm(⚠️ DELETE ALL DATA FOR ${group}?)) {
+    db.ref(submissions/${group}`).remove().then(() => { 
+        alert("Cleared!"); 
+        admin(); 
+    });
+  }
+}
+
+> Alisherov Nurmuhammad:
+function exportCSV(group){
+ db.ref(submissions/${group}).once("value", snap => {
+  let data = snap.val() || {};
+  let csv = ["Student," + TASKS.join(",")];
+  GROUPS[group].forEach(s => {
+   let row = [s];
+   TASKS.forEach(t => { 
+       row.push(data[s] && data[s][t] ? "Yes" : "No"); 
+   });
+   csv.push(row.join(","));
+  });
+  let blob = new Blob([csv.join("\n")], {type: "text/csv;charset=utf-8;"});
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = group + ".csv";
+  a.click();
+ });
+}
+
+// Запуск приложения
+home();
+</script>
+</body>
+</html>
+
+> Alisherov Nurmuhammad:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Statista</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<style>
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --bg: #0f172a;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --text: #f1f5f9;
+  --accent: #06b6d4;
+  --danger: #ef4444;
+  --success: #22c55e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+header {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  text-transform: uppercase;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.container { max-width: 800px; margin: 20px auto; padding: 20px; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.view-section { animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary { background: var(--primary); color: white; width: 100%; font-size: 16px; }
+.primary:hover { background: var(--primary-hover); box-shadow: 0 0 15px var(--primary); }
+
+.secondary { background: #475569; color: white; }
+.danger { background: var(--danger); color: white; }
+
+.back { background: transparent; border: 1px solid var(--accent); color: var(--accent); margin-bottom: 20px; }
+.back:hover { background: var(--accent); color: #000; }
+
+.task { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+
+.status-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; text-transform: uppercase; }
+.green { background: rgba(34, 197, 94, 0.2); color: var(--success); border: 1px solid var(--success); }
+.red { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+
+img { max-width: 100%; height: auto; border-radius: 12px; margin-top: 15px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+input[type=file] { display: none; }
+
+.admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+
+h3 { color: var(--accent); margin-top: 0; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+</style>
+</head>
+<body>
+<header>Student Statista</header>
+<div class="container" id="app"></div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDJDVZazGiEUshVicJX8ObvxIjDPgA5rTo",
+  authDomain: "studentstatista.firebaseapp.com",
+  databaseURL: "https://studentstatista-default-rtdb.firebaseio.com",
+  projectId: "studentstatista"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const IMGBB_KEY = "be4e74e3246530deeb9dd1d7cfb31a3d";
+
+> Alisherov Nurmuhammad:
+const TASKS = ["Dictation","Reading Test Bank","Podcast","Writing task 1","Writing task 2","Speaking Part 1","Speaking Part 2","Speaking Part 3","Listening Strategies","Listening Practice","Reading Practice","Listening Made easy","Cambridge Listening","Cambridge Reading","Cambridge Writing","TED Podcasts","Vocab for ielts book","Article"];
+
+const GROUPS = {
+ "GROUP IELTS M/W/F 9:00":["HOSHIMOVA NILUFAR","JURAYEVA AZIZA","MAHMUDOV SUNNAT","MUHIDDINOVA MAHBUBA","NORBOYEV SHOHJAXON","OCHILOV LOCHINBEK","ORALOVA SHOHINUR","RAVSHANOVA ZAYNAB","TOSHPULATOV ABBOS"],
+ "GROUP IELTS 17:00 MWF":["ABDURAHIMOVA ZILOLA","ALIMOV BEHRUZ","ANVAROVA RUXSHONA","ASADOV SARDOR","BAXRONOVA FAYRUZA","GAFURJONOV ULUGBEK","ISMOILOV ISMOIL","JULIBOYEVA ZEBO","KOZIMJONOVA DURDONA","QIZIMELIKUZIYEVA RUXSHONA","NIGMATOV ABDURAHIM","RAHMATULLAYEV BEXRUZ","TALABOV SAUD","XISLATULLAYEV JAVOXIR","XODJAYEVA LAZIZA","YORMATOV MIRABROR"]
+};
+
+const app = document.getElementById("app");
+
+function render(html){ app.innerHTML = <div class="view-section">${html}</div>; }
+
+function home(){
+ render(
+  <div style="text-align:center; padding: 40px 0;">
+    <h2 style="margin-bottom:30px">Welcome to Portal</h2>
+    <div class="card"><button class="primary" onclick="student()">🚀 Enter as Student</button></div>
+    <div class="card"><button class="secondary" style="width:100%" onclick="login()">🛠 Teacher Panel</button></div>
+  </div>
+ );
+}
+
+function student(){
+ let h = <button class="back" onclick="home()">← Back</button><h3>Select your group</h3>;
+ Object.keys(GROUPS).forEach(g => {
+  h += <div class="card"><button class="primary" onclick="students('${g.replace(/'/g,"\\'")}')">${g}</button></div>;
+ });
+ render(h);
+}
+
+function students(group){
+ let h = <button class="back" onclick="student()">← Back</button><h3>${group}</h3>;
+ GROUPS[group].forEach(s => {
+  h += <div class="card"><button class="primary" onclick="tasks('${group.replace(/'/g,"\\'")}','${s.replace(/'/g,"\\'")}')">👤 ${s}</button></div>;
+ });
+ render(h);
+}
+
+async function tasks(group, studentName){
+  render(<button class="back" onclick="students('${group.replace(/'/g,"\\'")}')">← Back</button><h3>${studentName}</h3><div id="taskList">Loading...</div>);
+  const list = document.getElementById("taskList");
+  try{
+    const snap = await db.ref(submissions/${group}/${studentName}).once("value");
+    const data = snap.val() || {};
+    let h="";
+    TASKS.forEach(t=>{
+      const d = data[t];
+      h += <div class="card task">
+       <div style="flex:1">
+        <b style="font-size:18px">${t}</b><br><br>
+        <span class="status-badge ${d && d.submitted ? 'green':'red'}">${d && d.submitted ? '✓ Submitted':'✕ Pending'}</span>
+        ${d && d.fileUrl ? <br><img src="${d.fileUrl}"> : ''}
+       </div>
+       <div>
+        <label class="primary" style="cursor:pointer; padding:10px 20px; border-radius:10px">
+         📤 ${d && d.submitted ? 'Resubmit' : 'Submit Photo'}
+         <input type="file" accept="image/*" onchange="submitTask(this,'${group.replace(/'/g,"\\'")}','${studentName.replace(/'/g,"\\'")}','${t.replace(/'/g,"\\'")}')">
+        </label>
+       </div>
+      </div>;
+    });
+    list.innerHTML=h;
+  } catch(e){ list.innerHTML="<p style='color:red'>Failed to load tasks</p>"; console.error(e); }
+}
+
+async function submitTask(input, group, student, task){
+  const file = input.files[0];
+  if(!file) return;
+  const label = input.parentElement;
+  label.innerText="Uploading...";
+  label.style.pointerEvents="none";
+  label.style.opacity="0.5";
+
+  const fd = new FormData();
+  fd.append("image", file);
+  try{
+    const res = await fetch(https://api.imgbb.com/1/upload?key=${IMGBB_KEY},{method:"POST",body:fd});
+    const json = await res.json();
+    if(json.success){
+      await db.ref(submissions/${group}/${student}/${task}).set({
+
+> Alisherov Nurmuhammad:
+fileUrl: json.data.url,
+        submitted:true,
+        time: Date.now()
+      });
+      alert("Success! 🎉");
+    } else throw new Error("Upload failed");
+  } catch(e){ alert("Upload failed. Please try again."); console.error(e); }
+  tasks(group, student);
+}
+
+function login(){
+ const u = prompt("Login:");
+ const p = prompt("Password:");
+ if((u==="Teacher1"&&p==="Admin1")||(u==="Assistant1"&&p==="Admin2")) admin();
+ else alert("Access Denied");
+}
+
+function admin(){
+ let h=<button class="back" onclick="home()">← Back</button><h3>Admin Dashboard</h3><div class="admin-grid">;
+ Object.keys(GROUPS).forEach(g=>{
+   h+=<div class="card">
+    <b style="color:var(--accent)">${g}</b><br><br>
+    <div style="display:flex; flex-direction:column; gap:8px">
+      <button class="primary" onclick="openGroup('${g.replace(/'/g,"\\'")}')">📂 Open</button>
+      <button class="secondary" onclick="exportCSV('${g.replace(/'/g,"\\'")}')">📊 Export CSV</button>
+      <button class="danger" onclick="clearGroup('${g.replace(/'/g,"\\'")}')">🗑 Reset</button>
+    </div>
+   </div>;
+ });
+ h+="</div>";
+ render(h);
+}
+
+async function openGroup(group){
+  render(<button class="back" onclick="admin()">← Back</button><h3>Monitoring: ${group}</h3><div id="adminList">Loading group data...</div>);
+  const list=document.getElementById("adminList");
+  try{
+    const snap=await db.ref(submissions/${group}).once("value");
+    const groupData=snap.val()||{};
+    let html="";
+    GROUPS[group].forEach(student=>{
+      const studentData=groupData[student]||{};
+      let taskStats="";
+      TASKS.forEach(task=>{
+        const d=studentData[task];
+        const hasFile=d && d.fileUrl;
+        taskStats+=<div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px">
+          <span>${task}</span>
+          <span>
+            <span class="status-badge ${hasFile?'green':'red'}" style="font-size:10px">${hasFile?'YES':'NO'}</span>
+            ${hasFile?<button style="padding:2px 8px; font-size:10px; margin-left:5px" onclick="window.open('${d.fileUrl}','_blank')">View</button>:''}
+          </span>
+        </div>;
+      });
+      html+=<div class="card">
+        <b style="font-size:18px; color:var(--accent)">${student}</b>
+        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0">
+        ${taskStats}
+      </div>;
+    });
+    list.innerHTML=html;
+  }catch(e){ list.innerHTML="<p style='color:red'>Failed to load group</p>"; console.error(e);}
+}
+
+function clearGroup(group){
+  if(confirm(⚠️ DELETE ALL DATA FOR ${group}?)){
+    db.ref(submissions/${group}).remove().then(()=>{ alert("Cleared!"); admin(); });
+  }
+}
+
+function exportCSV(group){
+  db.ref(submissions/${group}).once("value",snap=>{
+    const data=snap.val()||{};
+    const csv=["Student,"+TASKS.join(",")];
+    GROUPS[group].forEach(s=>{
+      const row=[s];
+      TASKS.forEach(t=>row.push(data[s]&&data[s][t]?"Yes":"No"));
+      csv.push(row.join(","));
+    });
+    const blob=new Blob([csv.join("\n")],{type:"text/csv;charset=utf-8;"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=group+".csv";
+    a.click();
+  });
+}
+
+// Start
+home();
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asia Mobile - Смартфоны и Технологии</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- AOS (Animate On Scroll) для крутых анимаций при прокрутке -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" data-aos="fade-right" data-aos-duration="800">
+                    <img class="logo-radius" src="images/df9f22e3-6e04-4cda-9c8e-600cb5dd4552.jpg" alt="Asia Mobile Logo">
+                </div>
+                <nav class="main-nav" id="mainNav">
+                    <ul>
+                        <li><a href="#home" class="nav-link active">Home</a></li>
+                        <li><a href="#about" class="nav-link">About Us</a></li>
+                        <li><a href="#products" class="nav-link">Products</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-icons">
+                    <a href="#" class="cart-icon" id="cartIcon" data-aos="zoom-in" data-aos-delay="200">
+                        <i class="fas fa-shopping-basket"></i>
+                        <sup id="cartCount">0</sup>
+                    </a>
+                    <button class="menu-toggle" id="menuToggle" data-aos="zoom-in" data-aos-delay="300"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text-left" data-aos="fade-right" data-aos-duration="1000">
+                        <h1>Asia <br> Mobile</h1>
+                        <p class="slogan-russian">Eng yangi modellar <br> kafolat va qulay narxlar!</p>
+                        <a href="https://t.me/asiamobileuz" target="_blank" class="telegram-button" data-aos="zoom-in" data-aos-delay="500">Telegram Kanalga Otish</a>
+                    </div>
+                    <div class="hero-text-right" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                        <p>Asia Mobile-Zamonaviy Smartfonlar va Texnologiyalar dunyosiga hush kelibsiz!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="800">
+                        <i class="fas fa-rocket"></i>
+                        <p>Тезкор етказиб бериш.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                        <i class="fas fa-dollar-sign"></i>
+                        <p>Енг яхши нархлар.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <i class="fas fa-check-circle"></i>
+                        <p>100% Ишончли</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2 data-aos="fade-down" data-aos-duration="800">Our Products</h2>
+                <!-- Контейнер для продуктов -->
+                <div class="product-grid" id="productGrid" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- Product Cards will be dynamically inserted here by JS -->
+                </div>
+                <!-- Навигация по страницам -->
+                <div class="product-pagination-nav">
+                    <button class="nav-arrow left-arrow" id="prevPageBtn"><i class="fas fa-chevron-left"></i></button>
+                    <span id="pageInfo">1 / 5</span>
+                    <button class="nav-arrow right-arrow" id="nextPageBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Пустая секция для "About Us" -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 data-aos="fade-down">About Us</h2>
+                <div class="about-content" data-aos="fade-up">
+                    <p>Asia Mobile - ваш надежный партнер в мире современных смартфонов и технологий. Мы предлагаем широкий ассортимент новейших моделей по выгодным ценам с гарантией качества. Наша миссия - сделать передовые технологии доступными для каждого.</p>
+                    <p>Мы ценим каждого клиента и стремимся обеспечить лучший сервис, быструю доставку и полную надежность в каждой сделке. Добро пожаловать в мир инноваций с Asia Mobile!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 data-aos="fade-down" data-aos-duration="800">Contact Us</h2>
+                <div class="contact-content">
+                    <div class="contact-details" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+998 91 164 4004</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Malika Bozor, A-15 Dokon</span>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://t.me/asiamobileuz" target="_blank" class="social-icon telegram-bg" data-aos="zoom-in" data-aos-delay="400"><i class="fab fa-telegram-plane"></i></a>
+                            <a href="https://www.instagram.com/asiamobileuz?igsh=MTVpdTlpdWExZTZuZA==" target="_blank" class="social-icon instagram-bg" data-aos="zoom-in" data-aos-delay="500"><i class="fab fa-instagram"></i></a>
+                        </div>
+                        <p class="company-name">Asia Mobile</p>
+                    </div>
+                    <div class="contact-map-overlay" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                        <img src="images/istockphoto-1470522174-612x612-removebg-preview.png" alt="World Map Background" class="world-map-bg">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Asia Mobile. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно корзины -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-content">
+            <span class="close-button" id="closeCartModal">&times;</span>
+            <h2>Your Shopping Cart</h2>
+            <div id="cartItemsContainer" class="cart-items-container">
+                <!-- Cart items will be loaded here by JS -->
+                <p class="empty-cart-message">Ваша корзина пуста.</p>
+            </div>
+            <div class="cart-summary">
+                <p>Итого: <span id="cartTotalPrice">0</span> UZS</p>
+                <button class="checkout-button">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>

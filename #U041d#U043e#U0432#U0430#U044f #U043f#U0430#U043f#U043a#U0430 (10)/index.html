@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+            background-color: #F8F9FA;
+        }
+
+        /* Анимация появления контента */
+        .tab-content { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Плавное всплытие модальных окон */
+        .modal-animate { 
+            animation: modalUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        @keyframes modalUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @media (min-width: 640px) {
+            .modal-animate { animation: modalScale 0.3s ease-out; }
+            @keyframes modalScale {
+                from { transform: scale(0.9); opacity: 0; }
+                to { transform: scale(1); opacity: 1; }
+            }
+        }
+
+        /* Активная вкладка в навигации */
+        .active-tab { color: #1f2937 !important; position: relative; }
+        .active-tab::after {
+            content: ''; position: absolute; top: -1px; width: 24px; height: 3px;
+            background: #1f2937; border-radius: 10px;
+        }
+
+        /* Эффект пульсации для уведомлений */
+        .pulse { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .hidden { display: none; }
+        
+        /* Кастомный скролл */
+        .custom-scroll::-webkit-scrollbar { width: 3px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
+
+        /* Эффекты для карточек */
+        .hover-card { transition: all 0.2s ease; border: 1px solid #f3f4f6; }
+        .hover-card:hover { transform: translateY(-3px); border-color: #e5e7eb; box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden text-gray-800">
+
+    <div id="main-content" class="flex-1 overflow-y-auto pb-24 custom-scroll">
+        
+        <section id="tab-home" class="p-5 tab-content">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight">Dashboard</h1>
+                    <p id="current-date" class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5"></p>
+                </div>
+                <button onclick="openModal('modal-notifications')" class="relative p-3 bg-white rounded-2xl shadow-sm hover:bg-gray-50 active:scale-90 transition-all border border-gray-100">
+                    <i data-lucide="bell" class="w-5 h-5 text-gray-600"></i>
+                    <span id="notif-count" class="hidden absolute top-0 right-0 bg-red-500 text-white text-[9px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white pulse">0</span>
+                </button>
+            </div>
+
+            <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-1.5 mb-6 shadow-sm border border-gray-100 flex gap-1">
+                <button onclick="setCurrency('UZS')" id="btn-UZS" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all duration-300">UZS</button>
+                <button onclick="setCurrency('USD')" id="btn-USD" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all duration-300">USD</button>
+                <button onclick="setCurrency('RUB')" id="btn-RUB" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all duration-300">RUB</button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="bg-gray-900 rounded-[32px] p-6 text-white shadow-xl shadow-gray-200 relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <div class="text-[10px] opacity-50 uppercase font-black tracking-widest mb-2">Общий Доход</div>
+                        <div id="stat-revenue" class="text-2xl font-bold tracking-tight">0</div>
+                        <div id="stat-symbol" class="text-[10px] opacity-40 mt-1 font-bold">UZS</div>
+                    </div>
+                    <i data-lucide="trending-up" class="absolute -right-2 -bottom-2 w-16 h-16 opacity-10 group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div class="bg-white rounded-[32px] p-6 shadow-sm border border-gray-100 hover-card relative overflow-hidden group">
+                    <div class="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-2">Продано</div>
+                    <div id="stat-sold" class="text-2xl font-bold text-gray-900">0</div>
+                    <div class="text-[10px] text-gray-400 mt-1 font-bold">ЕДИНИЦ</div>
+                    <i data-lucide="shopping-cart" class="absolute -right-2 -bottom-2 w-16 h-16 text-gray-50 group-hover:scale-110 transition-transform"></i>
+                </div>
+            </div>
+
+            <h3 class="text-[11px] font-black text-gray-400 mb-4 ml-1 uppercase tracking-[0.2em]">Управление</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="openModal('modal-sale')" class="group bg-white p-5 rounded-[28px] border border-gray-100 flex flex-col items-center gap-3 hover:border-gray-900 hover:shadow-xl transition-all active:scale-95">
+                    <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-all">
+                        <i data-lucide="arrow-down-right" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-[11px] font-black uppercase tracking-wider">Продажа</span>
+                </button>
+                <button onclick="switchTab('products')" class="group bg-white p-5 rounded-[28px] border border-gray-100 flex flex-col items-center gap-3 hover:border-gray-900 hover:shadow-xl transition-all active:scale-95">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all">
+                        <i data-lucide="package" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-[11px] font-black uppercase tracking-wider">Склад</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="tab-products" class="p-5 hidden tab-content">
+            <div class="flex justify-between items-end mb-6">
+                <h2 class="text-2xl font-bold tracking-tight">Мой Склад</h2>
+                <div class="flex gap-2">
+                    <button onclick="openModal('modal-product')" class="p-3 bg-gray-900 text-white rounded-xl active:scale-90 transition-all hover:shadow-lg"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    <button onclick="openModal('modal-incoming')" class="p-3 bg-white border border-gray-200 rounded-xl active:scale-90 transition-all hover:bg-gray-50"><i data-lucide="trending-up" class="w-5 h-5 text-gray-600"></i></button>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-gray-800 to-gray-950 rounded-[32px] p-6 text-white mb-8 shadow-xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <div class="text-[10px] opacity-50 font-black tracking-[0.2em] mb-2 uppercase">Итого на балансе</div>
+                    <div id="stock-value" class="text-3xl font-bold tracking-tight">0</div>
+                    <div id="stock-symbol" class="text-[10px] opacity-40 mt-1 font-bold">UZS</div>
+                </div>
+                <i data-lucide="database" class="absolute -right-6 -bottom-6 w-32 h-32 opacity-10 text-white"></i>
+            </div>
+            <div id="product-list" class="space-y-4"></div>
+        </section>
+
+        <section id="tab-sales" class="p-5 hidden tab-content">
+            <h2 class="text-2xl font-bold mb-6 tracking-tight">История Продаж</h2>
+            <div id="sales-list" class="space-y-3"></div>
+        </section>
+
+        <section id="tab-settings" class="p-5 hidden tab-content">
+            <h2 class="text-2xl font-bold mb-6 tracking-tight">Настройки</h2>
+            <div class="bg-white rounded-[32px] p-6 shadow-sm border border-gray-100">
+                <h3 class="font-bold mb-6 flex items-center gap-2 text-gray-900"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Курсы валют</h3>
+                <div class="space-y-5">
+                    <div>
+                        <label class="text-[10px] font-black text-gray-400 ml-1 uppercase tracking-widest">1 USD в UZS</label>
+                        <input id="rate-usd" type="number" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none focus:ring-2 ring-gray-900 transition-all mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-gray-400 ml-1 uppercase tracking-widest">1 RUB в UZS</label>
+                        <input id="rate-rub" type="number" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none focus:ring-2 ring-gray-900 transition-all mt-1">
+                    </div>
+                    <button onclick="saveRates()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:shadow-xl active:scale-95 transition-all mt-4">Применить изменения</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <nav class="fixed bottom-0 w-full bg-white/80 backdrop-blur-xl border-t border-gray-100 h-20 flex justify-around items-center px-4 z-40 pb-5">
+        <button onclick="switchTab('home')" class="nav-btn flex-1 flex flex-col items-center text-gray-300 transition-all" id="nav-home">
+            <i data-lucide="layout-grid" class="w-6 h-6"></i><span class="text-[10px] font-bold mt-1">Главная</span>
+        </button>
+        <button onclick="switchTab('products')" class="nav-btn flex-1 flex flex-col items-center text-gray-300 transition-all" id="nav-products">
+            <i data-lucide="layers" class="w-6 h-6"></i><span class="text-[10px] font-bold mt-1">Склад</span>
+        </button>
+        <button onclick="switchTab('sales')" class="nav-btn flex-1 flex flex-col items-center text-gray-300 transition-all" id="nav-sales">
+            <i data-lucide="history" class="w-6 h-6"></i><span class="text-[10px] font-bold mt-1">Продажи</span>
+        </button>
+        <button onclick="switchTab('settings')" class="nav-btn flex-1 flex flex-col items-center text-gray-300 transition-all" id="nav-settings">
+            <i data-lucide="settings-2" class="w-6 h-6"></i><span class="text-[10px] font-bold mt-1">Опции</span>
+        </button>
+    </nav>
+
+    <div id="modal-container" class="fixed inset-0 bg-black/40 hidden z-50 flex items-end sm:items-center justify-center backdrop-blur-md transition-all duration-300">
+        
+        <div id="modal-notifications" class="bg-white rounded-t-[40px] sm:rounded-[32px] w-full max-w-md p-6 hidden modal-animate shadow-2xl overflow-hidden relative">
+            <button onclick="closeModal()" class="absolute right-6 top-6 text-gray-400 hover:text-gray-900 transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+            
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6 sm:hidden"></div>
+            <div class="flex justify-between items-center mb-6 px-1">
+                <h3 class="text-xl font-bold flex items-center gap-2 tracking-tight">
+                    <i data-lucide="bell" class="w-5 h-5"></i> История действий
+                </h3>
+                <button onclick="clearNotifications()" class="text-[10px] bg-red-50 text-red-600 px-3 py-2 rounded-xl font-black uppercase tracking-tighter active:scale-95 transition-all">Очистить</button>
+            </div>
+            <div id="full-notif-list" class="space-y-3 max-h-[60vh] overflow-y-auto px-1 custom-scroll"></div>
+            <button onclick="closeModal()" class="w-full mt-6 bg-gray-100 text-gray-600 py-4 rounded-2xl font-bold active:bg-gray-200 transition-all">Закрыть</button>
+        </div>
+
+        <div id="modal-product" class="bg-white rounded-t-[40px] sm:rounded-[32px] w-full max-w-md p-6 sm:p-8 hidden modal-animate shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute right-6 top-8 text-gray-400 hover:text-gray-900 transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6 sm:hidden"></div>
+            <h3 class="text-xl font-bold mb-6 tracking-tight">Новая позиция</h3>
+            <div class="space-y-4">
+                <input id="p-name" type="text" placeholder="Название товара" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none focus:ring-2 ring-gray-900 focus:bg-white transition-all">
+                <div class="grid grid-cols-2 gap-4">
+                    <input id="p-price" type="number" placeholder="Цена" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none focus:ring-2 ring-gray-900 focus:bg-white transition-all">
+                    <input id="p-qty" type="number" placeholder="Кол-во" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none focus:ring-2 ring-gray-900 focus:bg-white transition-all">
+                </div>
+                <button onclick="addProduct()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold shadow-xl shadow-gray-200 active:scale-[0.98] transition-all mt-2">Добавить в базу</button>
+                <button onclick="closeModal()" class="w-full text-gray-400 text-xs font-bold py-2 uppercase tracking-widest">Отмена</button>
+            </div>
+        </div>
+
+        <div id="modal-sale" class="bg-white rounded-t-[40px] sm:rounded-[32px] w-full max-w-md p-6 sm:p-8 hidden modal-animate shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute right-6 top-8 text-gray-400 hover:text-gray-900 transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6 sm:hidden"></div>
+            <h3 class="text-xl font-bold mb-6 tracking-tight">Продажа</h3>
+            <div class="space-y-4">
+                <select id="sale-product" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none appearance-none focus:ring-2 ring-gray-900 transition-all"></select>
+                <input id="sale-qty" type="number" placeholder="Сколько продать?" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none focus:ring-2 ring-gray-900 transition-all">
+                <button onclick="addSale()" class="w-full bg-green-600 text-white py-4 rounded-2xl font-bold shadow-xl shadow-green-100 active:scale-[0.98] transition-all mt-2">Оформить</button>
+            </div>
+        </div>
+
+        <div id="modal-incoming" class="bg-white rounded-t-[40px] sm:rounded-[32px] w-full max-w-md p-6 sm:p-8 hidden modal-animate shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute right-6 top-8 text-gray-400 hover:text-gray-900 transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6 sm:hidden"></div>
+            <h3 class="text-xl font-bold mb-6 tracking-tight text-blue-600">Приход товара</h3>
+            <div class="space-y-4">
+                <select id="inc-product" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none appearance-none focus:ring-2 ring-gray-900 transition-all"></select>
+                <input id="inc-qty" type="number" placeholder="Количество пополнения" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none focus:ring-2 ring-gray-900 transition-all">
+                <button onclick="addIncoming()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-xl shadow-blue-100 active:scale-[0.98] transition-all mt-2">Обновить остатки</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Состояние приложения
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        let sales = JSON.parse(localStorage.getItem('sales')) || [];
+        let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+        let currency = 'UZS';
+        let rates = { USD: 12500, RUB: 135, UZS: 1 };
+
+        // Инициализация
+        lucide.createIcons();
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-tab'));
+            document.getElementById(`nav-${tabId}`).classList.add('active-tab');
+            if(tabId === 'settings') {
+                document.getElementById('rate-usd').value = rates.USD;
+                document.getElementById('rate-rub').value = rates.RUB;
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function setCurrency(curr) {
+            currency = curr;
+            ['UZS', 'USD', 'RUB'].forEach(c => {
+                const btn = document.getElementById(`btn-${c}`);
+                if(c === curr) {
+                    btn.classList.add('bg-gray-900', 'text-white', 'shadow-md');
+                    btn.classList.remove('text-gray-400', 'bg-transparent');
+                } else {
+                    btn.classList.remove('bg-gray-900', 'text-white', 'shadow-md');
+                    btn.classList.add('text-gray-400', 'bg-transparent');
+                }
+            });
+            updateUI();
+        }
+
+        function convert(amount) {
+            return (amount / rates[currency]).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 1});
+        }
+
+        function updateUI() {
+            localStorage.setItem('products', JSON.stringify(products));
+            localStorage.setItem('sales', JSON.stringify(sales));
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+
+            // Статистика
+            document.getElementById('stat-revenue').innerText = convert(sales.reduce((a, b) => a + b.total, 0));
+            document.getElementById('stat-sold').innerText = sales.reduce((a, b) => a + b.qty, 0);
+            document.getElementById('stat-symbol').innerText = currency;
+
+            // Уведомления
+            const notifCount = document.getElementById('notif-count');
+            notifCount.innerText = notifications.length;
+            notifCount.classList.toggle('hidden', notifications.length === 0);
+            document.getElementById('full-notif-list').innerHTML = notifications.length ? notifications.map(n => `
+                <div class="bg-gray-50 p-4 rounded-2xl border-l-4 ${n.type === 'sale' ? 'border-green-500' : 'border-blue-500'}">
+                    <div class="text-[11px] font-bold text-gray-800 leading-tight">${n.msg}</div>
+                    <div class="text-[9px] text-gray-400 mt-1.5 font-black uppercase tracking-widest">${n.time}</div>
+                </div>
+            `).join('') : '<div class="text-center text-gray-300 py-12 italic text-sm">История уведомлений пуста</div>';
+
+            // Склад
+            const stockVal = products.reduce((a, b) => a + (b.price * b.qty), 0);
+            document.getElementById('stock-value').innerText = convert(stockVal);
+            document.getElementById('stock-symbol').innerText = `${currency} | ${stockVal.toLocaleString()} сум`;
+            document.getElementById('product-list').innerHTML = products.length ? products.map(p => `
+                <div class="bg-white rounded-[24px] p-5 shadow-sm border border-gray-100 hover-card">
+                    <div class="flex justify-between items-start">
+                        <div class="font-bold text-gray-900 tracking-tight">${p.name}</div>
+                        <div class="bg-gray-900 text-white text-[9px] px-2.5 py-1 rounded-lg font-black tracking-widest uppercase">${p.qty} ШТ</div>
+                    </div>
+                    <div class="flex justify-between items-end mt-5 pt-4 border-t border-gray-50">
+                        <div class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Цена за ед: ${p.price.toLocaleString()}</div>
+                        <div class="text-sm font-black text-gray-900">${(p.price * p.qty).toLocaleString()} сум</div>
+                    </div>
+                </div>
+            `).join('') : '<div class="bg-white p-12 rounded-[32px] text-center text-gray-300 italic border border-dashed border-gray-200">Склад пуст</div>';
+
+            // История продаж
+            document.getElementById('sales-list').innerHTML = sales.length ? sales.map(s => {
+                const p = products.find(x => x.id === s.pId);
+                return `
+                <div class="bg-white p-5 rounded-[24px] shadow-sm border border-gray-50 border-l-4 border-green-500 hover-card">
+                    <div class="flex justify-between font-bold text-gray-900">
+                        <span class="tracking-tight">${p?.name || 'Товар удален'}</span>
+                        <span class="text-green-600 font-black">+ ${s.total.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-tighter">
+                        <span>${s.date}</span>
+                        <span class="bg-gray-50 px-2 py-0.5 rounded italic">Продано: ${s.qty} ед.</span>
+                    </div>
+                </div>`;
+            }).reverse().join('') : '<div class="bg-white p-12 rounded-[32px] text-center text-gray-300 italic border border-dashed border-gray-200">Продаж еще не было</div>';
+
+            const opts = '<option value="" disabled selected>Найти товар...</option>' + products.map(p => `<option value="${p.id}">${p.name} (Доступно: ${p.qty})</option>`).join('');
+            document.getElementById('inc-product').innerHTML = opts;
+            document.getElementById('sale-product').innerHTML = opts;
+            lucide.createIcons();
+        }
+
+        function openModal(id) {
+            document.getElementById('modal-container').classList.remove('hidden');
+            document.querySelectorAll('#modal-container > div').forEach(d => d.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('modal-animate');
+            lucide.createIcons(); // Обновляем иконки для кнопки X
+        }
+
+        function closeModal() {
+            document.getElementById('modal-container').classList.add('hidden');
+        }
+
+        function addNotification(msg, type = 'info') {
+            notifications.unshift({ msg, type, time: new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}) + ' ' + new Date().toLocaleDateString('ru-RU') });
+            updateUI();
+        }
+
+        function clearNotifications() {
+            if(confirm('Удалить всю историю?')) { notifications = []; updateUI(); }
+        }
+
+        function addProduct() {
+            const name = document.getElementById('p-name').value;
+            const price = parseFloat(document.getElementById('p-price').value);
+            const qty = parseInt(document.getElementById('p-qty').value) || 0;
+            if (name && price) {
+                products.push({ id: Date.now(), name, price, qty });
+                addNotification(`Создан товар: ${name}`, 'info');
+                closeModal();
+                document.getElementById('p-name').value = '';
+                document.getElementById('p-price').value = '';
+                document.getElementById('p-qty').value = '';
+                updateUI();
+            }
+        }
+
+        function addIncoming() {
+            const pId = parseInt(document.getElementById('inc-product').value);
+            const qty = parseInt(document.getElementById('inc-qty').value);
+            if (pId && qty) {
+                const product = products.find(p => p.id === pId);
+                product.qty += qty;
+                addNotification(`Поступление: ${product.name} (+${qty} ед.)`, 'info');
+                closeModal();
+                updateUI();
+            }
+        }
+
+        function addSale() {
+            const pId = parseInt(document.getElementById('sale-product').value);
+            const qty = parseInt(document.getElementById('sale-qty').value);
+            const product = products.find(p => p.id === pId);
+            if (product && product.qty >= qty) {
+                product.qty -= qty;
+                sales.push({ id: Date.now(), pId, qty, total: product.price * qty, date: new Date().toLocaleDateString('ru-RU') });
+                addNotification(`Продажа: ${product.name} (-${qty} ед.)`, 'sale');
+                closeModal();
+                updateUI();
+            } else {
+                alert('Недостаточно товара на складе!');
+            }
+        }
+
+        function saveRates() {
+            rates.USD = parseFloat(document.getElementById('rate-usd').value) || rates.USD;
+            rates.RUB = parseFloat(document.getElementById('rate-rub').value) || rates.RUB;
+            addNotification('Курсы валют успешно обновлены');
+            updateUI();
+        }
+
+        // Авто-запуск
+        setCurrency('UZS');
+        switchTab('home');
+    </script>
+</body>
+</html>

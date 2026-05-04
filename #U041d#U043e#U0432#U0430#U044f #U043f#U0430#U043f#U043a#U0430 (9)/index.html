@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Statista Pro | Full Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+  <style>
+    :root {
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.2);
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text);
+    }
+
+    header {
+      backdrop-filter: blur(15px);
+      background: rgba(30, 41, 59, 0.7);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header b {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(to right, #818cf8, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .card:active {
+      transform: scale(0.97);
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 16px;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: white;
+    }
+
+    .secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .back {
+      background: none;
+      color: var(--text-dim);
+      width: auto;
+      padding: 10px 0;
+    }
+
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .green-bg {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+
+    .red-bg {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .upload-area {
+      margin-top: 15px;
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #helpBtn {
+      background: rgba(99, 102, 241, 0.1);
+      color: #818cf8;
+      padding: 8px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    input[type=file] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <b>Homework Statista</b>
+    <div id="helpBtn" onclick="openInstruction()">Guide</div>
+  </header>
+
+  <div class="container" id="app"></div>
+
+  <script>
+    // Настройки Firebase
+    firebase.initializeApp({
+      apiKey: "AIzaSyDJDVZazGiEUshVicJX8ObvxIjDPgA5rTo",
+      authDomain: "studentstatista.firebaseapp.com",
+      databaseURL: "https://studentstatista-default-rtdb.firebaseio.com",
+      projectId: "studentstatista",
+      storageBucket: "studentstatista.firebasestorage.app"
+    });
+    const db = firebase.database();
+    const storage = firebase.storage();
+
+    // ПОЛНЫЕ ДАННЫЕ ГРУПП
+    const GROUPS = {
+      "GROUP IELTS 9:00 M/W/F": ["HOSHIMOVA NILUFAR", "JURAYEVA AZIZA", "MAHMUDOV SUNNAT", "MUHIDDINOVA MAHBUBA", "NORBOYEV SHOHJAXON", "OCHILOV LOCHINBEK", "ORALOVA SHOHINUR", "RAVSHANOVA ZAYNAB", "TOSHPULATOV ABBOS"],
+      "GROUP IELTS 17:00 MWF": ["ABDURAHIMOVA ZILOLA", "ALIMOV BEHRUZ", "ANVAROVA RUXSHONA", "ASADOV SARDOR", "BAXRONOVA FAYRUZA", "GAFURJONOV ULUGBEK", "ISMOILOV ISMOIL", "JULIBOYEVA ZEBO", "KOZIMJONOVA DURDONA", "MELIKUZIYEVA RUXSHONA", "NIGMATOV ABDURAHIM", "RAHMATULLAYEV BEXRUZ", "TALABOV SAUD", "XISLATULLAYEV JAVOXIR", "XODJAYEVA LAZIZA", "YORMATOV MIRABROR"],
+      "GROUP CEFR 15:30 MWF": ["ABDUGAFFAROVA MANZURA", "ISROILOV ISMOIL", "JORABEKOV AZIZBEK", "NORBOYEVA YULDUZ", "TULKUNOVA EZOZA", "XURSANBEKOVA AZIZA", "QUDRATILLA OMONOV", "MANSUROV MUSTAFO", "OCHILOV KAMRONBEK", "GUZOROV MAHMUDBEK"],
+      "GROUP IELTS T/T/S 9:00": ["SAIDUSMONOVA MADINA", "SOBIROVA MARJONA", "TILLAYEV OYBEK", "TOSHTEMIROVA MUBORAK", "UMAROVA MOXIGUL"],
+      "GROUP IELTS 10:30 TTS": ["ADXAMOVA MUBINA", "BAXTIYOROVA NILUFAR", "ISAMATOVA LAYLO", "NOSIROVA LAZIZA", "QILICHOVA GULISTON"],
+      "GROUP IELTS T/T/S 14:00": ["ABDUAZIZOVA HABIBA", "ABDUJABBOROVA LOLA", "ABDUVALIYEVA OMINA", "ALISHEROV NURMUHAMMAD", "DJURAYEVA NURGUL", "ISLOMBEKOVA EZOZA", "ISMAILOVA EZOZA", "JORABEKOV AFZALBEK", "MAHMUDJONOV FAYZULLOH", "MIRAHMEDOVA MUSLIMA", "OLIMJONOVA DILNURA", "TOJIBOYEV MUXAMMAD", "UROLOV SIROJ", "XUDOYBERDIYEV QOSIMBEK"],
+      "GROUP IELTS 15:30 TTS": ["ABUBAKIROVA RAHIMA", "IMANKULOVA CHAROS", "ISLOMXOJAYEV YUNUS", "KAYUMKHAJAYEVA JASMINA", "MAVLONBEKOV NURMUHAMMAD", "MIRAXMEDOVA ROBIYA", "MIRSAIDOVA MALIKA", "MIRSODIQOV MIRABROR", "QODIROV ABDUVALI", "QOSIMOVA NARGIZA", "RAVSHANOVA MUSLIMA", "SHARAXMEDOVA KAMILA", "SHERALIYEV ELSHOD", "TOGAYEVA SHAXINA", "UMARXONOVA JAVOHIRPOSHSHA", "YOLDASHEVA FARZONA", "ZOIRXOJAYEVA ROBIYA"]
+    };
+
+    // ПОЛНЫЕ ДАННЫЕ STAGES
+    const STAGES = {
+      "STAGE 1 - WRITING TASK 1": {
+        "LESSON 1": ["Dictation 1-3", "Reading Test Bank Updated 1-3", "New Podcasts 1-4", "Writing Task 1 (3 graphs - introduction & overview)", "Vocabulary for Test Bank (Learn)", "Speaking: Work or Study"],
+        "LESSON 2": ["Dictation 4-6", "Reading Test Bank Updated 4-6", "New Podcasts 5-8", "Writing Task 1 (Full report)", "Vocabulary for Test Bank (Learn)", "Speaking: Hometown"],
+        "LESSON 3": ["Dictation 7-9", "Reading Test Bank Updated 7-9", "New Podcasts 9-12", "Writing Task 1 (Full report)", "Vocabulary for Test Bank (Learn)", "Speaking: Home"],
+        "LESSON 4": ["Dictation 10-12", "Reading Test Bank Updated 10-12", "New Podcasts 13-16", "Writing Task 1 (Report 5-6 full)", "Vocabulary for Test Bank (Learn)", "Speaking: Social Media"],
+        "LESSON 5": ["Dictation 13-15", "Reading Test Bank Updated 13-15", "New Podcasts 17-20", "Writing Task 1 (Report 7-8 full)", "Vocabulary for Test Bank (Learn)", "Speaking: Colors"],
+        "LESSON 6": ["Dictation 16-18", "Reading Test Bank Updated 16-18", "New Podcasts 21-24", "Writing Task 1 (Full report)", "Vocabulary for Test Bank (Learn)", "Speaking: Music"],
+        "LESSON 7": ["Dictation 19-21", "Reading Test Bank Updated 19-21", "New Podcasts 25-28", "Writing Task 1 (Full report)", "Vocabulary for Test Bank (Learn)", "Speaking: Food"],
+        "LESSON 8": ["Dictation 22-24", "Reading Test Bank Updated 22-24", "New Podcasts 29-32", "Vocabulary for Test Bank (Learn)", "Writing Report", "Speaking: Shopping"],
+        "LESSON 9": ["Dictation 25-27", "Reading Test Bank Updated 25-27", "New Podcasts 33-36", "Vocabulary for Test Bank (Learn)", "Writing Task 1", "Speaking: Sport"]
+      },
+      "STAGE 2 - LISTENING": {
+        "LESSON 1": ["Listening Strategies Unit 1", "Listening Practice Lesson 1", "Reading Practice Lesson 1", "Spelling Dictation (Pages 2-3)", "Task 1 Editing (Rewriting)", "Speaking: Shopping"],
+        "LESSON 2": ["Listening Strategies Unit 2", "Listening Practice Lesson 2", "Reading Practice Lesson 2", "Spelling Dictation (All pages)", "Listening Made Easy", "Task 1 (Rewriting)", "Speaking: Morning routine"],
+        "LESSON 3": ["Listening Strategies Unit 3", "Listening Practice Lesson 3", "Reading Practice Lesson 3", "Spelling Dictation", "Listening Made Easy", "Task 1 (Rewriting)", "Speaking: News"],
+        "LESSON 4": ["Listening Strategies Unit 4", "Listening Practice Lesson 4", "Reading Practice Lesson 4", "Spelling Dictation", "Listening Made Easy", "Task 1 (Rewriting)", "Speaking: Sharing things"],
+        "LESSON 5": ["Listening Strategies Unit 5", "Listening Practice Lesson 5", "Reading Practice Lesson 5", "Spelling Dictation"]
+      },
+      "STAGE 3 - READING": {
+        "LESSON 1": ["Cambridge 10 Test 1 (L/R)", "TED Radio Hour (Joy) P1", "Shadowing Video", "Articles"],
+        "LESSON 2": ["Cambridge 10 Test 2 (L/R)", "TED Radio Hour (Joy) P2", "Task 1 review", "Articles"],
+        "LESSON 3": ["Cambridge 10 Test 3 (L/R)", "TED Radio Hour (Quiet) P1", "Shadowing Video", "Articles"],
+        "LESSON 4": ["Cambridge 10 Test 4 (L/R)", "TED Radio Hour (Quiet) P2", "Task 1 review", "Articles"],
+        "LESSON 5": ["Cambridge 11 Test 1 (L/R)", "TED Radio Hour (Food) P1", "Shadowing Video", "Articles"],
+        "LESSON 6": ["Cambridge 11 Test 2 (L/R)", "TED Radio Hour (Food) P2", "Task 1 report", "Articles"],
+        "LESSON 7": ["Cambridge 11 Test 3 (L/R)", "TED Radio Hour (Senses) P1", "Shadowing Video", "Articles"],
+        "LESSON 8": ["Cambridge 11 Test 4 (L/R)", "TED Radio Hour (Senses) P2", "Task 1 report", "Articles"],
+        "LESSON 9": ["Cambridge 12 Test 1 (L/R)", "TED Radio Hour (Design) P1", "Shadowing Video", "Articles"],
+        "LESSON 10": ["Cambridge 12 Test 2 (L/R)", "TED Radio Hour (Design) P2", "Task 1 report", "Articles"]
+      },
+      "STAGE 4 - WRITING TASK 2 AND SPEAKING": {
+        "LESSON 1": ["Cambridge 12 Test 3 (L/R)", "TED Radio Hour (Mistakes) P1", "Speaking P2+P3", "Articles"],
+        "LESSON 2": ["Cambridge 12 Test 4 (L/R)", "TED Radio Hour (Mistakes) P2", "Speaking P2+P3", "Opinion Essay"],
+        "LESSON 3": ["Cambridge 13 Test 1 (L/R)", "TED Radio Hour (School) P1", "Speaking P2+P3", "Discussion Essay"],
+        "LESSON 4": ["Cambridge 13 Test 2 (L/R)", "TED Radio Hour (School) P2", "Speaking P2+P3", "Adv/Disadv Essay"],
+        "LESSON 5": ["Cambridge 13 Test 3 (L/R)", "TED Radio Hour (Overcoming)", "Speaking P2+P3", "Issue Essay"],
+        "LESSON 6": ["Cambridge 13 Test 4 (L/R)", "TED Radio Hour (Networks) P1", "Speaking P2+P3", "Mixed Essay"],
+        "LESSON 7": ["Cambridge 14 Test 1 (L/R)", "TED Radio Hour (Networks) P2", "Speaking P2+P3", "Direct Essay"],
+        "LESSON 8": ["Cambridge 14 Test 2 (L/R/W)", "TED Radio Hour (Curiosity) P1", "Speaking P2+P3", "Articles"],
+        "LESSON 9": ["Cambridge 14 Test 3 (L/R/W)", "TED Radio Hour (Curiosity) P2", "Speaking P2+P3", "Articles"],
+        "LESSON 10": ["Cambridge 14 Test 4 (L/R/W)", "TED Radio Hour (Comfort Zone) P1", "Speaking P2+P3", "Articles"],
+        "LESSON 11": ["Cambridge 15 Test 1 (L/R/W)", "TED Radio Hour (Comfort Zone) P2", "Speaking P2+P3", "Articles"],
+        "LESSON 12": ["Cambridge 15 Test 2 (L/R/W)", "TED Radio Hour (Money) P1", "Speaking P2+P3", "Articles"]
+      },
+      "STAGE 5 - POLISHING SKILLS": {
+        "LESSON 1": ["Full Listening x1", "Full Reading x1", "Article reading", "1 hour podcast", "Writing Task 1", "Speaking Practice"],
+        "LESSON 2": ["Full Listening x1", "Full Reading x1", "Article reading", "1 hour podcast", "Writing Task 2", "Speaking Practice"]
+      }
+    };
+
+    const app = document.getElementById("app");
+
+    function fireConfetti() {
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#6366f1', '#10b981', '#ffffff'] });
+    }
+
+    function render(html) { app.innerHTML = html; window.scrollTo(0, 0); }
+
+    function home() {
+      render(`
+    <div style="text-align:center; padding: 40px 0;" class="animate__animated animate__fadeIn">
+      <h1>Homework Statista</h1>
+      
+    </div>
+    <div class="card animate__animated animate__zoomIn"><button class="primary" onclick="enterStudent()">👨‍🎓 Student Portal</button></div>
+    <div class="card animate__animated animate__zoomIn" style="animation-delay: 0.1s"><button class="secondary" onclick="login()">👨‍🏫 Teacher Portal</button></div>
+  `);
+    }
+
+    function enterStudent() {
+      let h = `<button class="back" onclick="home()">← Back</button><h3>Select Group</h3>`;
+      Object.keys(GROUPS).forEach((g, i) => {
+        h += `<div class="card animate__animated animate__fadeInLeft" style="animation-delay: ${i * 0.03}s" onclick="selectStudent('${g}')"><b>${g}</b></div>`;
+      });
+      render(h);
+    }
+
+    function selectStudent(group) {
+      let h = `<button class="back" onclick="enterStudent()">← Back</button><h3>${group}</h3>`;
+      GROUPS[group].forEach((s, i) => {
+        h += `<div class="card animate__animated animate__fadeInRight" style="animation-delay: ${i * 0.02}s" onclick="showStages('${group}','${s}')"><b>${s}</b></div>`;
+      });
+      render(h);
+    }
+
+    function showStages(group, student) {
+      let h = `<button class="back" onclick="selectStudent('${group}')">← Back</button><h3>${student}</h3>`;
+      Object.keys(STAGES).forEach((stage, i) => {
+        h += `<div class="card animate__animated animate__flipInX" style="animation-delay: ${i * 0.05}s" onclick="showLessons('${group}','${student}','${stage}')"><b>${stage}</b></div>`;
+      });
+      render(h);
+    }
+
+    function showLessons(group, student, stage) {
+      let h = `<button class="back" onclick="showStages('${group}','${student}')">← Back</button><h3>${stage}</h3>`;
+      Object.keys(STAGES[stage]).forEach((lesson, i) => {
+        h += `<div class="card animate__animated animate__bounceIn" style="animation-delay: ${i * 0.05}s" onclick="showHomework('${group}','${student}','${stage}','${lesson}')"><b>${lesson}</b></div>`;
+      });
+      render(h);
+    }
+
+    async function showHomework(group, student, stage, lesson) {
+      render(`<div class="card animate__animated animate__pulse animate__infinite" style="background:rgba(255,255,255,0.05); height:150px"></div>`);
+      let h = `<button class="back" onclick="showLessons('${group}','${student}','${stage}')">← Back</button><h3>${lesson}</h3>`;
+
+      for (const hw of STAGES[stage][lesson]) {
+        const snap = await db.ref(`submissions/${group}/${student}/${stage}/${lesson}/${hw}`).once("value");
+        const d = snap.val();
+        const submitted = d && Array.isArray(d.files) && d.files.length > 0;
+
+        h += `
+      <div class="card animate__animated animate__fadeInUp">
+        <div style="display:flex; justify-content:space-between; align-items:start">
+          <div style="font-weight:700; max-width:70%">${hw}</div>
+          <span class="status-badge ${submitted ? 'green-bg' : 'red-bg'}">${submitted ? 'Done' : 'Pending'}</span>
+        </div>
+        ${submitted ? `<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">${d.files.map(url => `<img src="${url}" />`).join("")}</div>` : ''}
+        <label class="upload-area">
+          <div style="font-size:20px">📷</div>
+          <div style="font-size:12px; margin-top:5px">${submitted ? 'Update Photo' : 'Upload Photo'}</div>
+          <input type="file" accept="image/*" multiple onchange="submitHW(this,'${group}','${student}','${stage}','${lesson}','${hw}')">
+        </label>
+      </div>
+    `;
+      }
+      render(h);
+    }
+
+    async function submitHW(input, group, student, stage, lesson, hw) {
+      const files = Array.from(input.files);
+      if (!files.length) return;
+      input.parentElement.innerHTML = "<span>Uploading...</span>";
+      let uploadedUrls = [];
+      for (const file of files) {
+        const path = `submissions/${safe(group)}/${safe(student)}/${Date.now()}_${safe(file.name)}`;
+        const ref = storage.ref(path);
+        await ref.put(file);
+        uploadedUrls.push(await ref.getDownloadURL());
+      }
+      await db.ref(`submissions/${group}/${student}/${stage}/${lesson}/${hw}`).set({ files: uploadedUrls, time: Date.now() });
+      fireConfetti();
+      setTimeout(() => showHomework(group, student, stage, lesson), 1000);
+    }
+
+    function safe(v) { return v.replace(/[^a-zA-Z0-9]/g, "_"); }
+    function openInstruction() { alert("1. Choose Group\n2. Select Lesson\n3. Upload Photo\n4. Enjoy Confetti!"); }
+
+    function login() {
+      const u = prompt("User"); const p = prompt("Pass");
+      if ((u === "Teacher1" && p === "Admin1") || (u === "Assistant1" && p === "Admin2")) admin();
+    }
+
+    function admin() {
+      let h = `<button class="back" onclick="home()">← Back</button><h3>Admin Panel</h3>`;
+      Object.keys(GROUPS).forEach(g => {
+        h += `<div class="card animate__animated animate__fadeIn">
+          <b>${g}</b><br><br>
+          <button class="primary" onclick="adminGroup('${g}')">Check Homework</button>
+        </div>`;
+      });
+      render(h);
+    }
+
+    function adminGroup(group) {
+      let h = `<button class="back" onclick="admin()">← Back</button><h3>${group}</h3>`;
+      Object.keys(STAGES).forEach(s => h += `<div class="card" onclick="adminStageSelect('${group}','${s}')">${s}</div>`);
+      render(h);
+    }
+
+    function adminStageSelect(group, stage) {
+      let h = `<button class="back" onclick="adminGroup('${group}')">← Back</button><h3>${stage}</h3>`;
+      Object.keys(STAGES[stage]).forEach(l => h += `<div class="card" onclick="adminLessonView('${group}','${stage}','${l}')">${l}</div>`);
+      render(h);
+    }
+
+    async function adminLessonView(group, stage, lesson) {
+      render("<h3>Loading Results...</h3>");
+      let h = `<button class="back" onclick="adminStageSelect('${group}','${stage}')">← Back</button><h3>${lesson}</h3>`;
+      for (const student of GROUPS[group]) {
+        h += `<div class="card"><b>${student}</b><hr style="opacity:0.1">`;
+        for (const hw of STAGES[stage][lesson]) {
+          const snap = await db.ref(`submissions/${group}/${student}/${stage}/${lesson}/${hw}`).once("value");
+          const ok = snap.val() && snap.val().files;
+          h += `<div style="font-size:12px; display:flex; justify-content:space-between; margin:4px 0">
+              <span>${hw}</span>
+              <span style="color:${ok ? '#10b981' : '#ef4444'}">${ok ? '✔' : '✖'}</span>
+            </div>`;
+        }
+        h += `</div>`;
+      }
+      render(h);
+    }
+
+    home();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,583 @@
+/* Переменные для удобства изменения цветов */
+:root {
+    --primary-bg: #1a2a3a; /* Основной темный фон */
+    --secondary-bg: #2a3d52; /* Фон для секций */
+    --accent-color: #00bcd4; /* Яркий акцентный цвет (бирюзовый) */
+    --light-text: #e0e6eb; /* Светлый текст */
+    --dark-text: #a0aab8; /* Более темный текст на светлом фоне */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Общие стили и сброс */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: var(--light-text);
+    background-color: var(--primary-bg);
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Предотвращает горизонтальный скролл */
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+    color: #4dd0e1; /* Более светлый оттенок при наведении */
+    transform: translateY(-2px);
+}
+
+/* Ключевые кадры для анимаций */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Классы для анимаций */
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0; /* Изначально скрываем */
+}
+.animate-fade-in-up.delay-1 { animation-delay: 0.2s; }
+.animate-fade-in-up.delay-2 { animation-delay: 0.4s; }
+.animate-fade-in-up.delay-3 { animation-delay: 0.6s; }
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.3s;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+    opacity: 0;
+    /* Добавим задержку для каждого элемента через JS или CSS (если их мало) */
+}
+
+
+/* Навигация (Header) */
+header {
+    background-color: var(--secondary-bg);
+    padding: 1rem 0;
+    box-shadow: var(--shadow-dark);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo a {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.logo a:hover {
+    color: #4dd0e1;
+    transform: scale(1.05);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 40px;
+}
+
+nav ul li a {
+    color: var(--light-text);
+    font-weight: 500;
+    font-size: 1.05rem;
+    position: relative;
+    padding-bottom: 5px; /* Для подчеркивания */
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Главная секция (Hero) */
+.hero {
+    background: linear-gradient(135deg, var(--primary-bg) 0%, #112233 100%);
+    color: var(--light-text);
+    text-align: center;
+    padding: 150px 20px;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden; /* Для фоновых эффектов */
+}
+
+/* Добавим псевдоэлемент для абстрактного паттерна/градиента */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0, 188, 212, 0.1) 0%, transparent 70%);
+    opacity: 0.5;
+    animation: rotateBackground 20s linear infinite;
+}
+
+@keyframes rotateBackground {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.hero-content {
+    max-width: 900px;
+    position: relative; /* Для Z-index */
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 4.8rem;
+    margin-bottom: 20px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.8rem;
+    margin-bottom: 50px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 300;
+}
+
+.button {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.button:hover {
+    background-color: #4dd0e1; /* Более светлый акцент */
+    color: var(--primary-bg);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* Общие стили для секций */
+section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section h2 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 70px;
+    color: var(--light-text);
+    position: relative;
+    padding-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 6px;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+}
+
+/* Секция Портфолио */
+.portfolio {
+    background-color: var(--primary-bg); /* Можно оставить primary или secondary */
+}
+
+.categories {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.categories button {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    padding: 14px 30px;
+    margin: 0 12px 12px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--dark-text);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    outline: none;
+    box-shadow: var(--shadow-light);
+}
+
+.categories button.active,
+.categories button:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+}
+
+.portfolio-item {
+    background-color: var(--secondary-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-dark);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+    cursor: pointer;
+    display: block;
+    border: 1px solid var(--border-color);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--border-color);
+    transition: transform 0.4s ease;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05); /* Легкое увеличение изображения */
+}
+
+.item-info {
+    padding: 28px;
+}
+
+.item-info h3 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    color: var(--light-text);
+    font-weight: 600;
+}
+
+.item-info p {
+    font-size: 1rem;
+    color: var(--dark-text);
+}
+
+/* Секция Обо мне */
+.about {
+    background-color: var(--secondary-bg);
+    border-radius: 15px;
+    padding: 80px 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-shadow: var(--shadow-dark);
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 1.15rem;
+    color: var(--dark-text);
+}
+
+.about-content h2 { /* Переопределение стиля для h2 в about */
+    margin-bottom: 40px;
+}
+
+.about-content p {
+    margin-bottom: 25px;
+}
+
+.about-content strong {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.about-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 25px;
+}
+
+.about-content ul li {
+    margin-bottom: 12px;
+    padding-left: 30px;
+    position: relative;
+    color: var(--light-text);
+}
+
+.about-content ul li::before {
+    content: '★';
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Секция Контакты */
+.contact {
+    background-color: var(--primary-bg);
+    text-align: center;
+}
+
+.contact p {
+    font-size: 1.2rem;
+    margin-bottom: 45px;
+    color: var(--dark-text);
+}
+
+.contact form {
+    max-width: 700px;
+    margin: 0 auto 60px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact input,
+.contact textarea {
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1.05rem;
+    width: 100%;
+    background-color: var(--secondary-bg);
+    color: var(--light-text);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact input::placeholder,
+.contact textarea::placeholder {
+    color: var(--dark-text);
+    opacity: 0.7;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 188, 212, 0.3);
+    outline: none;
+}
+
+.contact textarea {
+    resize: vertical;
+    min-height: 160px;
+}
+
+.contact .button {
+    width: auto;
+    align-self: center;
+    padding: 18px 45px;
+    font-size: 1.3rem;
+}
+
+.social-links {
+    margin-top: 40px;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 0 18px;
+    font-size: 2.5rem;
+    color: var(--dark-text);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-7px) scale(1.1);
+}
+
+/* Футер */
+footer {
+    background-color: #111e2b; /* Еще более темный оттенок */
+    color: var(--dark-text);
+    text-align: center;
+    padding: 50px 20px;
+    font-size: 0.95rem;
+    border-top: 5px solid var(--accent-color);
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 4rem;
+    }
+    .hero p {
+        font-size: 1.5rem;
+    }
+    nav ul li {
+        margin-left: 25px;
+    }
+    section h2 {
+        font-size: 3rem;
+    }
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .about {
+        padding: 60px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    nav ul li {
+        margin: 5px 15px;
+    }
+    .hero {
+        padding: 100px 20px;
+    }
+    .hero h1 {
+        font-size: 3.2rem;
+    }
+    .hero p {
+        font-size: 1.2rem;
+    }
+    section {
+        padding: 70px 20px;
+    }
+    section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+    }
+    .categories button {
+        margin: 5px;
+        padding: 10px 20px;
+    }
+    .about-content, .contact p {
+        font-size: 1.05rem;
+    }
+    .contact form {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    .social-links a {
+        font-size: 2rem;
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .logo a {
+        font-size: 1.8rem;
+    }
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+    section h2 {
+        font-size: 2rem;
+    }
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+    .button {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+    }
+    .item-info h3 {
+        font-size: 1.4rem;
+    }
+    .about {
+        padding: 40px 20px;
+    }
+}

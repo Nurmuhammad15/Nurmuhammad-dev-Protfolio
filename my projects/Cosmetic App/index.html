@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlamGlow Cosmetics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);
+            transform: translateY(-5px);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+    <!-- Vanta.js Background -->
+    <div id="vanta-bg" class="fixed top-0 left-0 w-full h-full -z-10"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 backdrop-blur-md bg-black/50 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold gradient-text">GlamGlow ✨</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="hover:text-pink-400 transition-all duration-300 transform hover:scale-110">Products</a>
+                <a href="#" class="hover:text-pink-400 transition-all duration-300 transform hover:scale-110">About</a>
+                <a href="#" class="hover:text-pink-400 transition-all duration-300 transform hover:scale-110">Blog</a>
+                <a href="#" class="hover:text-pink-400 transition-all duration-300 transform hover:scale-110">Contact</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hover:text-pink-400 transition-all">
+                    <i data-feather="shopping-bag"></i>
+                </a>
+                <a href="#" class="hover:text-pink-400 transition-all">
+                    <i data-feather="user"></i>
+                </a>
+                <button class="md:hidden">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <h1 class="text-5xl md:text-7xl font-bold gradient-text">Illuminate Your Beauty</h1>
+                <p class="text-xl text-gray-300">Discover our premium cosmetics collection designed to make you glow like never before.</p>
+                <button class="px-8 py-3 rounded-full gradient-bg hover:bg-pink-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-pink-500/50 text-white font-bold">
+                    Shop Now
+                </button>
+            </div>
+            <div class="relative">
+                <img src="http://static.photos/cosmetic/1200x630/1" alt="Cosmetic Products" class="rounded-2xl float-animation glow-hover border-4 border-pink-500/20">
+                <div class="absolute -bottom-6 -right-6 bg-pink-500/20 backdrop-blur-lg p-4 rounded-xl shadow-xl">
+                    <span class="text-2xl font-bold gradient-text">New Collection!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Products</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 transform transition-all duration-500 hover:scale-105 glow-hover">
+                    <div class="relative h-64 mb-4">
+                        <img src="http://static.photos/cosmetic/640x360/2" alt="Lipstick" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute top-4 right-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold">New</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Luminous Lip Gloss</h3>
+                    <p class="text-gray-400 mb-4">High-shine lip gloss with vitamins for hydration</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-pink-400">$24.99</span>
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-full transition-all duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 transform transition-all duration-500 hover:scale-105 glow-hover">
+                    <div class="relative h-64 mb-4">
+                        <img src="http://static.photos/cosmetic/640x360/3" alt="Eyeshadow" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Stellar Eyeshadow Palette</h3>
+                    <p class="text-gray-400 mb-4">12 highly pigmented shades with long wear</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-pink-400">$39.99</span>
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-full transition-all duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 transform transition-all duration-500 hover:scale-105 glow-hover">
+                    <div class="relative h-64 mb-4">
+                        <img src="http://static.photos/cosmetic/640x360/4" alt="Foundation" class="w-full h-full object-cover rounded-lg">
+                        <div class="absolute top-4 right-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold">Bestseller</div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Radiant Skin Foundation</h3>
+                    <p class="text-gray-400 mb-4">Buildable coverage with SPF 30 protection</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-pink-400">$34.99</span>
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-full transition-all duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glow Effect Section -->
+    <section class="py-20 px-6 gradient-bg">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8 text-white">Experience the Glow Difference</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 transform transition-all duration-500 hover:scale-105 border border-white/20">
+                    <i data-feather="award" class="w-12 h-12 mx-auto mb-4 text-pink-300"></i>
+                    <h3 class="text-xl font-bold mb-2 text-white">Premium Quality</h3>
+                    <p class="text-gray-200">Only the finest ingredients for your skin</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 transform transition-all duration-500 hover:scale-105 border border-white/20">
+                    <i data-feather="heart" class="w-12 h-12 mx-auto mb-4 text-pink-300"></i>
+                    <h3 class="text-xl font-bold mb-2 text-white">Cruelty Free</h3>
+                    <p class="text-gray-200">Never tested on animals</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8 transform transition-all duration-500 hover:scale-105 border border-white/20">
+                    <i data-feather="smile" class="w-12 h-12 mx-auto mb-4 text-pink-300"></i>
+                    <h3 class="text-xl font-bold mb-2 text-white">Vegan Options</h3>
+                    <p class="text-gray-200">Plant-based formulas available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-20 px-6">
+        <div class="max-w-4xl mx-auto bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-8 md:p-12 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-white">Join Our Glow Gang</h2>
+            <p class="text-xl mb-8 text-pink-100">Subscribe to get 15% off your first order and exclusive offers</p>
+            <div class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+                <input type="email" placeholder="Your email address" class="flex-grow px-6 py-3 rounded-full bg-white/20 backdrop-blur-sm text-white placeholder-pink-200 focus:outline-none focus:ring-2 focus:ring-white">
+                <button class="px-8 py-3 rounded-full bg-white text-pink-600 font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900/80 backdrop-blur-md py-12 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-2xl font-bold gradient-text mb-4">GlamGlow ✨</h3>
+                <p class="text-gray-400">Illuminate your beauty with our premium cosmetics collection.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition-all"><i data-feather="instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition-all"><i data-feather="facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition-all"><i data-feather="twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition-all"><i data-feather="youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4 text-white">Shop</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">New Arrivals</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Best Sellers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Skincare</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Makeup</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4 text-white">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Sustainability</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Press</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4 text-white">Help</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Contact Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">FAQs</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Shipping</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-pink-400 transition-all">Returns</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 text-center text-gray-500">
+            <p>© 2023 GlamGlow Cosmetics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Vanta.js background
+        VANTA.GLOBE({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0xff69b4,
+            backgroundColor: 0x0,
+            size: 0.8
+        });
+
+        // GSAP animations
+        gsap.from("nav", {duration: 1, y: -50, opacity: 0, ease: "power2.out"});
+        gsap.from(".float-animation", {duration: 1.5, y: 50, opacity: 0, delay: 0.3, ease: "back.out(1.7)"});
+
+        // Product hover effects
+        document.querySelectorAll('.glow-hover').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                gsap.to(item, {duration: 0.3, boxShadow: "0 0 30px rgba(255, 105, 180, 0.8)", ease: "power2.out"});
+            });
+            item.addEventListener('mouseleave', () => {
+                gsap.to(item, {duration: 0.3, boxShadow: "none", ease: "power2.out"});
+            });
+        });
+
+        // Initialize feather icons
+        feather.replace();
+    </script>
+</body>
+</html>

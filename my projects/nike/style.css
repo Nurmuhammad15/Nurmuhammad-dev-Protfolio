@@ -1,0 +1,308 @@
+/* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Навигационная панель */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #000;
+    letter-spacing: 1px;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar .nav-links a {
+    color: #555;
+    font-weight: 500;
+    font-size: 1.05em;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-links a:hover {
+    color: #000;
+}
+
+
+/* Геройский блок (Hero Section) */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Высота на весь экран */
+    /* Прямая ссылка на изображение Nike */
+    background: url('./images/header-nike-marketing-strategy.png') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden; /* Важно для анимаций */
+}
+
+/* Затемнение для лучшей читаемости текста */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Прозрачный черный фон */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3.8em;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    font-weight: 400;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+.hero-content button {
+    background-color: #007bff; /* Примерный синий цвет */
+    color: #fff;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.hero-content button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Анимация появления текста (fade-in-up) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    opacity: 0; /* Изначально скрыт */
+    transform: translateY(30px); /* Смещен вниз */
+    animation: fadeInUp 1s ease forwards; /* Длительность, функция, сохранение конечного состояния */
+}
+
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.6s; }
+/* Можно добавить больше задержек для последовательного появления */
+
+/* Секция с товарами */
+.products-showcase {
+    padding: 80px 5%;
+    text-align: center;
+    background-color: #fff;
+}
+
+.products-showcase h2 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: #333;
+    font-weight: 700;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Карточка товара */
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 20px; /* Увеличиваем паддинг снизу для кнопки */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Для дочерних элементов */
+}
+
+.product-card:hover {
+    transform: translateY(-10px) scale(1.02); /* Легкий подъем и увеличение */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+    width: 100%; /* Заполнение ширины родителя */
+    height: 250px; /* Увеличена фиксированная высота */
+    object-fit: cover; /* Заполнение контейнера, обрезая лишнее, сохраняя пропорции */
+    border-radius: 5px 5px 0 0; /* Верхние углы закруглены */
+    margin-bottom: 15px;
+    transition: transform 0.4s ease; /* Анимация для изображения */
+}
+
+.product-card:hover img {
+    transform: scale(1.08); /* Увеличение изображения внутри карточки */
+}
+
+.product-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #222;
+    padding: 0 20px; /* Добавим паддинг для текста */
+}
+
+.product-card .price {
+    font-size: 1.3em;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.product-card .add-to-cart {
+    background-color: #28a745; /* Зеленый цвет */
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+    opacity: 0; /* Изначально скрыта */
+    transform: translateY(10px); /* Смещена вниз */
+    position: absolute;
+    bottom: 20px; /* Отступ от нижнего края */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: calc(100% - 40px); /* Ширина с учетом паддинга карточки */
+}
+
+.product-card:hover .add-to-cart {
+    opacity: 1; /* Появляется при наведении */
+    transform: translateX(-50%) translateY(0px); /* Поднимается */
+}
+
+/* Секция "О нас" */
+.about-us-section {
+    padding: 80px 5%;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.about-us-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: 700;
+}
+
+.about-us-section p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.8;
+}
+
+/* Общие стили для scroll-reveal элементов */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform; /* Оптимизация для браузера */
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    .navbar .nav-links {
+        gap: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-content p {
+        font-size: 1.2em;
+    }
+    .hero-content button {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    .product-card img {
+        height: 200px; /* Чуть меньше на мобильных */
+    }
+}

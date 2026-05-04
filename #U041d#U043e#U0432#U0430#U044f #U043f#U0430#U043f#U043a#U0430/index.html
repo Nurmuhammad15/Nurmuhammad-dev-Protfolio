@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Алишеров Нурмухаммад — Дизайнер</title>
+  <meta name="description" content="Портфолио дизайнера Алишеров Нурмухаммад — логотипы, брендинг, UI/UX. 200+ проектов." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo-mark">AN</div>
+        <div class="brand-text">
+          <div class="name">Алишеров Нурмухаммад</div>
+          <div class="role">Brand & Logo Designer • UI/UX</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button id="ctaHire" class="btn btn-primary">Hire me</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-info">
+          <h1>Я создаю логотипы и бренды, которые продают</h1>
+          <p class="lead">200+ логотипов, фирменных стилей и дизайн‑решений для стартапов и компаний. Чистый, узнаваемый и цельный дизайн, адаптированный под рынок.</p>
+          <div class="hero-cta">
+            <button id="viewPortfolio" class="btn btn-primary">Посмотреть портфолио</button>
+            <a id="downloadResume" class="btn btn-ghost" href="resume.pdf" download>Скачать резюме</a>
+          </div>
+        </div>
+
+        <div class="hero-preview" aria-hidden="true">
+          <div class="showcase" id="heroShowcase"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container filters" id="filters">
+      <div class="filter-row">
+        <div>
+          <label>Поиск:</label>
+          <input id="searchInput" placeholder="По названию проекта..." />
+        </div>
+        <div>
+          <label>Категория:</label>
+          <select id="categorySelect">
+            <option value="all">Все</option>
+            <option value="logo">Logos</option>
+            <option value="branding">Branding</option>
+            <option value="ui">UI/UX</option>
+            <option value="illustration">Illustration</option>
+          </select>
+        </div>
+        <div>
+          <label>Сортировать:</label>
+          <select id="sortSelect">
+            <option value="new">Сначала новые</option>
+            <option value="old">Сначала старые</option>
+            <option value="alpha">По названию A→Z</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section container">
+      <h2 class="section-title">Портфолио — 200 проектов</h2>
+      <div id="grid" class="grid"></div>
+      <div class="center" style="margin-top:18px">
+        <button id="loadMore" class="btn btn-ghost">Показать ещё</button>
+      </div>
+    </section>
+
+    <section class="section container about">
+      <h2 class="section-title">Обо мне</h2>
+      <div class="about-grid">
+        <div>
+          <p>Я — дизайнер с сильным фокусом на брендинг и логотипы. Люблю простые идеи, понятную визуальную иерархию и дизайн, который решает бизнес‑задачи.</p>
+          <ul>
+            <li>200+ логотипов и фирменных стилей</li>
+            <li>Опыт с стартапами, e‑commerce и агентствами</li>
+            <li>Figma / Illustrator / Photoshop</li>
+          </ul>
+          <div style="margin-top:12px">
+            <button id="contactMe" class="btn btn-primary">Написать мне</button>
+          </div>
+        </div>
+        <div>
+          <h3>Навыки</h3>
+          <div class="skill"><label>Branding</label><div class="bar"><div style="width:95%"></div></div></div>
+          <div class="skill"><label>Logo design</label><div class="bar"><div style="width:98%"></div></div></div>
+          <div class="skill"><label>UI/UX</label><div class="bar"><div style="width:85%"></div></div></div>
+          <div class="skill"><label>Illustration</label><div class="bar"><div style="width:72%"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container testimonials">
+      <h2 class="section-title">Отзывы</h2>
+      <div class="test-grid">
+        <blockquote>
+          <p>«Нурмухаммад сделал наш бренд заметным и понятным — продажи выросли.»</p>
+          <cite>CEO, Startup</cite>
+        </blockquote>
+        <blockquote>
+          <p>«Очень профессионально, быстрый отклик, отличные идеи.»</p>
+          <cite>Marketing Lead, e‑commerce</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="contact" class="section container contact">
+      <h2 class="section-title">Контакты</h2>
+      <p>Готов обсудить ваш проект. Быстро отвечаю на письма.</p>
+      <div class="contact-row">
+        <a id="emailLink" class="btn btn-primary" href="t.me.//">Написать на Telegram</a>
+        <a id="phoneLink" class="btn btn-ghost" href="tel:+998948920033">Позвонить: +998 94 892 00 33</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© Алишеров Нурмухаммад — Designer. 
+    </footer>
+  </main>
+
+  <!-- project modal
+  <div id="modalBackdrop" class="modal-backdrop hidden" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <button class="modal-close" aria-label="Close">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div> -->
+
+
+<!-- modal backdrop (внизу body) -->
+<div id="modalBackdrop" class="modal-backdrop hidden" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
+    <div id="modalContent" class="modal-content" tabindex="0">
+      <!-- сюда вставляется содержимое через JS -->
+    </div>
+  </div>
+</div>
+
+
+  <script src="./script.js"></script>
+</body>
+</html>

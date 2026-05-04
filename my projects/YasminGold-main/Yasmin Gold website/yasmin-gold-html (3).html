@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yasmin Gold - Luxury Jewelry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Блики на фоне -->
+    <div class="sparkles" id="sparkles"></div>
+
+    <!-- Шапка -->
+    <header class="container">
+        <a href="#" class="logo">Yasmin Gold</a>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#categories">Коллекции</a></li>
+                <li><a href="#about">О бренде</a></li>
+                <li><a href="#footer">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Yasmin Gold — Shine with Soul</h1>
+            <p>Откройте для себя эксклюзивную коллекцию ювелирных изделий, созданных с любовью и страстью.</p>
+            <a href="#categories" class="hero-btn">Смотреть коллекции</a>
+        </div>
+    </section>
+
+    <!-- Категории -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Наши коллекции</h2>
+            <div class="categories-grid">
+                <!-- Карточка товара 1 -->
+                <div class="category-card">
+                    <img src="placeholder-image-1.jpg" alt="Роскошное колье" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Divine Elegance</h3>
+                        <p class="category-description">Изысканное колье с бриллиантами, подчеркивающее вашу индивидуальность и элегантность.</p>
+                        <span class="category-price">от 180 000 ₽</span>
+                        <button class="btn buy-btn" data-product="Divine Elegance">Купить</button>
+                    </div>
+                </div>
+
+                <!-- Карточка товара 2 -->
+                <div class="category-card">
+                    <img src="placeholder-image-2.jpg" alt="Золотые серьги" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Royal Touch</h3>
+                        <p class="category-description">Золотые серьги с сапфирами и бриллиантами — истинное воплощение королевской роскоши.</p>
+                        <span class="category-price">от 95 000 ₽</span>
+                        <button class="btn buy-btn" data-product="Royal Touch">Купить</button>
+                    </div>
+                </div>
+
+                <!-- Карточка товара 3 -->
+                <div class="category-card">
+                    <img src="placeholder-image-3.jpg" alt="Золотое кольцо" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Eternal Bond</h3>
+                        <p class="category-description">Обручальные кольца из коллекции Eternal Bond — символ вечной любви и преданности.</p>
+                        <span class="category-price">от 120 000 ₽</span>
+                        <button class="btn buy-btn" data-product="Eternal Bond">Купить</button>
+                    </div>
+                </div>
+
+                <!-- Карточка товара 4 -->
+                <div class="category-card">
+                    <img src="placeholder-image-4.jpg" alt="Золотой браслет" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Golden Harmony</h3>
+                        <p class="category-description">Уникальный браслет с гравировкой и драгоценными камнями, созданный вручную мастерами.</p>
+                        <span class="category-price">от 78 000 ₽</span>
+                        <button class="btn buy-btn" data-product="Golden Harmony">Купить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О бренде -->
+    <section class="about" id="about">
+        <div class="container about-container">
+            <div class="about-img">
+                <img src="about-image.jpg" alt="О бренде Yasmin Gold">
+            </div>
+            <div class="about-content">
+                <h2 class="section-title">История Yasmin Gold</h2>
+                <p>Yasmin Gold — бренд с историей, начавшейся более 25 лет назад. Мы создаем эксклюзивные ювелирные украшения, которые передаются из поколения в поколение как семейные реликвии.</p>
+                <p>Каждое изделие Yasmin Gold создается вручную талантливыми мастерами с использованием только лучших материалов: 18-каратного золота, безупречных бриллиантов и сапфиров, изумрудов и других драгоценных камней высочайшего качества.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-text">Лет опыта</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">10k+</div>
+                        <div class="stat-text">Счастливых клиентов</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-text">Наград</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer id="footer">
+        <div class="container footer-container">
+            <div class="footer-about">
+                <a href="#" class="logo footer-logo">Yasmin Gold</a>
+                <p>Эксклюзивные ювелирные изделия ручной работы, созданные для подчеркивания вашей индивидуальности и стиля.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-container">
+                <h3 class="footer-title">Навигация</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#categories">Коллекции</a></li>
+                    <li><a href="#about">О бренде</a></li>
+                    <li><a href="#footer">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-container">
+                <h3 class="footer-title">Контакты</h3>
+                <ul class="footer-links">
+                    <li><a href="tel:+78001234567">+7 (800) 123-45-67</a></li>
+                    <li><a href="mailto:info@yasmingold.ru">info@yasmingold.ru</a></li>
+                    <li><a href="#">г. Москва, ул. Тверская 21</a></li>
+                    <li><a href="#">10:00 - 22:00 (Пн-Вс)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright container">
+            <p>© 2025 Yasmin Gold. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="buyModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h3 class="modal-title">Оформление заказа</h3>
+            <form class="modal-form" id="orderForm">
+                <input type="hidden" id="productName" name="product">
+                <label for="name">Ваше имя</label>
+                <input type="text" id="name" name="name" required>
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Комментарий</label>
+                <textarea id="message" name="message" rows="3"></textarea>
+                <button type="submit" class="btn submit-btn">Оформить заказ</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

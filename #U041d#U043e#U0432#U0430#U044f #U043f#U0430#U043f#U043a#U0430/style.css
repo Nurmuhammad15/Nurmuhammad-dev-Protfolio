@@ -1,0 +1,148 @@
+/* styles.css — портфолио Алишеров Нурмухаммад */
+:root{
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --accent:#2f3bf7;
+  --accent-2:#ff6b6b;
+  --muted:#6b7280;
+  --shadow: 0 12px 40px rgba(17,24,71,0.06);
+  --radius:12px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#0b1221;-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.logo-mark{width:54px;height:54px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7b5cff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.brand-text .name{font-weight:800}
+.brand-text .role{color:var(--muted);font-size:13px}
+
+/* header */
+.site-header{background:linear-gradient(180deg,#fff,#f9fbff);box-shadow:var(--shadow);position:sticky;top:0;z-index:30}
+.header-inner{padding:14px 24px}
+
+/* hero */
+.hero{padding:48px 0}
+.hero-inner{display:flex;gap:28px;align-items:center}
+.hero-info{flex:1}
+.hero h1{font-size:34px;margin:0 0 12px 0}
+.lead{color:var(--muted);margin:0 0 18px 0}
+.hero-cta{display:flex;gap:12px}
+.btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(47,59,247,0.14)}
+.btn-ghost{background:transparent;border:1px solid rgba(15,23,70,0.06);color:var(--accent);}
+
+/* hero preview small showcase */
+.hero-preview{width:320px}
+.showcase{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.showcase .logo-thumb{width:100%;height:100px;border-radius:12px;display:flex;align-items:center;justify-content:center; font-weight:800;color:#fff;box-shadow:0 8px 30px rgba(16,24,60,0.06)}
+
+/* filters */
+.filters{padding:12px 0}
+.filter-row{display:flex;gap:12px;align-items:center}
+.filter-row input, .filter-row select{padding:8px;border-radius:8px;border:1px solid #eef3ff}
+
+/* portfolio grid */
+.section-title{margin:0 0 14px 0;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.item-card{background:var(--card);border-radius:12px;padding:10px;border:1px solid #eef4ff;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .18s,box-shadow .18s}
+.item-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(12,18,60,0.06)}
+.thumb{height:120px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+.item-meta{display:flex;justify-content:space-between;align-items:center}
+.item-meta .title{font-weight:600}
+.item-meta .cat{font-size:12px;color:var(--muted)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+.skill{margin-bottom:10px}
+.skill label{display:block;margin-bottom:6px;font-weight:600}
+.bar{height:12px;background:#eef3ff;border-radius:999px;overflow:hidden}
+.bar > div{height:100%;background:linear-gradient(90deg,var(--accent),#7b5cff);width:0;transition:width .8s}
+
+/* testimonials */
+.test-grid{display:flex;gap:12px}
+blockquote{background:var(--card);padding:12px;border-radius:12px;border:1px solid #eef4ff}
+
+/* contact */
+.contact-row{display:flex;gap:12px}
+
+/* footer */
+.site-footer{padding:20px 0;color:var(--muted);font-size:13px}
+
+/* modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(3,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:60}
+.modal-card{width:min(920px,96%);background:#fff;border-radius:12px;padding:18px;position:relative;box-shadow:0 30px 70px rgba(6,8,20,0.4)}
+.modal-close{position:absolute;right:12px;top:12px;border:none;background:transparent;font-size:18px;cursor:pointer}
+.modal-body{display:flex;gap:16px}
+.modal-thumb{width:320px;height:320px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff}
+.modal-info{flex:1}
+
+
+
+/* modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3,6,23,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* скрытие модалки */
+.hidden { display: none !important; }
+
+/* карточка модалки */
+.modal-card {
+  width: 100%;
+  max-width: 920px;      /* ограничим максимальную ширину */
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 30px 70px rgba(6,8,20,0.4);
+  position: relative;
+  overflow: hidden;
+  padding: 20px;         /* важный padding, чтобы не было "полоски" */
+  box-sizing: border-box;
+}
+
+/* содержимое внутри */
+.modal-content {
+  max-height: calc(100vh - 140px);
+  overflow: auto;
+  outline: none;
+}
+
+/* кнопка закрытия: всегда внутри карточки, видна и кликабельна */
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #111;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1010;
+}
+.modal-close:hover { background: rgba(0,0,0,0.04); }
+
+
+
+/* responsive */
+@media (max-width:980px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .hero-inner{flex-direction:column-reverse}
+  .about-grid{grid-template-columns:1fr}
+  .hero-preview{width:100%}
+}
+@media (max-width:520px){
+  .grid{grid-template-columns:1fr}
+}

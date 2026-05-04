@@ -1,0 +1,585 @@
+/* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --lamborghini-yellow: #FFA500; /* Яркий, агрессивный желтый */
+    --dark-bg: #101010; /* Очень темный фон */
+    --mid-dark-bg: #1a1a1a;
+    --light-text: #f0f0f0;
+    --grey-text: #a0a0a0;
+    --font-heading: 'Rajdhani', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--light-text);
+    background-color: var(--dark-bg);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: var(--lamborghini-yellow);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #fff;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: var(--font-body);
+    font-weight: 600;
+}
+
+/* Навигационная панель */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: rgba(16, 16, 16, 0.8);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    backdrop-filter: blur(8px); /* Усиленное размытие */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.navbar .logo {
+    font-family: var(--font-heading);
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--light-text);
+    letter-spacing: 3px; /* Расширенный кернинг */
+    text-transform: uppercase;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 40px;
+}
+
+.navbar .nav-links a {
+    color: var(--grey-text);
+    font-weight: 400;
+    font-size: 1.05em;
+    position: relative;
+    padding-bottom: 5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.navbar .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--lamborghini-yellow);
+    transition: width 0.3s ease-out;
+}
+
+.navbar .nav-links a:hover::after {
+    width: 100%;
+}
+
+.navbar .nav-links a:hover {
+    color: var(--light-text);
+}
+
+/* Геройский блок (Hero Section) */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('./images/belaya_lamborghini_aventador-facebook-cover.jpg') no-repeat center center/cover;
+    background-attachment: fixed; /* Параллакс */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--light-text);
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Более плотное затемнение */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    padding: 30px;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 5.5em;
+    margin-bottom: 25px;
+    line-height: 1.05;
+    font-weight: 700;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.hero-content p {
+    font-size: 1.8em;
+    margin-bottom: 50px;
+    font-weight: 300;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    letter-spacing: 1px;
+}
+
+.hero-content .hero-button {
+    background-color: var(--lamborghini-yellow);
+    color: var(--dark-bg); /* Темный текст на желтом фоне */
+    padding: 20px 60px;
+    font-size: 1.4em;
+    font-weight: 700;
+    border-radius: 3px; /* Острые углы */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255, 165, 0, 0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hero-content .hero-button:hover {
+    background-color: #ffb833;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(255, 165, 0, 0.6);
+}
+
+/* Анимация появления текста (fade-in-up) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(60px);
+    animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Более динамичная кривая */
+}
+
+.delay-1 { animation-delay: 0.4s; }
+.delay-2 { animation-delay: 0.8s; }
+
+/* Intro Section */
+.intro-section {
+    padding: 120px 5%;
+    text-align: center;
+    background-color: var(--mid-dark-bg);
+    position: relative;
+    /* Угловой эффект для секции */
+    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0% 90%);
+    margin-top: -10vh; /* Перекрытие геройского блока */
+    padding-top: calc(120px + 10vh); /* Компенсация за перекрытие */
+}
+/* Адаптация clip-path для мобильных, чтобы не было слишком агрессивно */
+@media (max-width: 768px) {
+    .intro-section {
+        clip-path: polygon(0 0, 100% 5%, 100% 100%, 0% 95%);
+        margin-top: -5vh;
+        padding-top: calc(120px + 5vh);
+    }
+}
+
+
+.intro-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.intro-section h2 {
+    font-family: var(--font-heading);
+    font-size: 4em;
+    margin-bottom: 40px;
+    color: var(--light-text);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.intro-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100px;
+    height: 4px;
+    background-color: var(--lamborghini-yellow);
+    /* Угловой эффект для подчеркивания */
+    clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+}
+
+.intro-section p {
+    font-size: 1.4em;
+    color: var(--grey-text);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 50px;
+    letter-spacing: 0.5px;
+}
+
+.intro-section .cta-button {
+    background-color: transparent;
+    border: 2px solid var(--lamborghini-yellow);
+    color: var(--lamborghini-yellow);
+    padding: 15px 40px;
+    font-size: 1.1em;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.intro-section .cta-button:hover {
+    background-color: var(--lamborghini-yellow);
+    color: var(--dark-bg);
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255, 165, 0, 0.3);
+}
+
+/* Models Showcase Section */
+.models-showcase {
+    padding: 150px 5% 120px;
+    text-align: center;
+    background-color: var(--dark-bg);
+}
+
+.models-showcase h2 {
+    font-family: var(--font-heading);
+    font-size: 4em;
+    margin-bottom: 80px;
+    color: var(--light-text);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.models-showcase h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100px;
+    height: 4px;
+    background-color: var(--lamborghini-yellow);
+    /* Угловой эффект для подчеркивания */
+    clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+}
+
+.model-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 70px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* Модель карточки (самое "необычное" тут) */
+.model-card {
+    background-color: var(--mid-dark-bg);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    height: 450px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.model-card:hover {
+    transform: translateY(-20px) scale(1.03);
+    box-shadow: 0 15px 50px rgba(255, 165, 0, 0.4), 0 0 0 4px var(--lamborghini-yellow); /* Яркая желтая обводка */
+}
+
+.model-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.model-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(0.5); /* Затемнение изображения */
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-text);
+    text-align: center;
+    /* Изначально скрываем и задаем угловую форму */
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); /* Полностью скрыт внизу */
+    transition: clip-path 0.5s ease-out; /* Анимация clip-path */
+}
+
+.model-card:hover .card-overlay {
+    /* При наведении раскрываем с угловым верхним краем */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); /* Полное раскрытие */
+    /* Для более агрессивного углового вида можно попробовать: */
+    /* clip-path: polygon(0% 20%, 100% 0%, 100% 100%, 0% 100%); */
+}
+
+.overlay-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s;
+    padding: 20px;
+}
+
+.model-card:hover .overlay-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-overlay h3 {
+    font-family: var(--font-heading);
+    font-size: 2.8em;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--lamborghini-yellow); /* Заголовок желтым */
+}
+
+.card-overlay p {
+    font-size: 1.2em;
+    margin-bottom: 25px;
+    font-weight: 300;
+    color: var(--grey-text);
+}
+
+.card-overlay .details-button {
+    background-color: var(--lamborghini-yellow);
+    color: var(--dark-bg);
+    padding: 12px 35px;
+    font-size: 1.1em;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-overlay .details-button:hover {
+    background-color: #ffb833;
+    transform: translateY(-3px);
+}
+
+
+/* Общие стили для scroll-reveal элементов */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform;
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Футер */
+.footer {
+    background-color: #0a0a0a;
+    color: var(--grey-text);
+    padding: 70px 5%;
+    text-align: center;
+    font-size: 0.9em;
+    position: relative;
+    /* Угловой эффект для футера */
+    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
+    margin-top: -10vh; /* Перекрытие предыдущей секции */
+    padding-top: calc(70px + 10vh); /* Компенсация за перекрытие */
+}
+@media (max-width: 768px) {
+    .footer {
+        clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+        margin-top: -5vh;
+        padding-top: calc(70px + 5vh);
+    }
+}
+
+
+.footer-content p {
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+.footer-content a {
+    color: var(--lamborghini-yellow);
+    margin: 0 10px;
+    font-weight: 400;
+}
+
+.footer-content a:hover {
+    color: var(--light-text);
+}
+
+.social-links {
+    margin-top: 25px;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 0 20px;
+    font-size: 1.2em;
+    color: var(--grey-text);
+}
+
+.social-links a:hover {
+    color: var(--lamborghini-yellow);
+    transform: scale(1.1);
+}
+
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1200px) {
+    .hero-content h1 {
+        font-size: 4.5em;
+    }
+    .hero-content p {
+        font-size: 1.5em;
+    }
+    .intro-section h2, .models-showcase h2 {
+        font-size: 3.5em;
+    }
+    .intro-section p {
+        font-size: 1.2em;
+    }
+    .model-grid {
+        gap: 50px;
+    }
+    .model-card {
+        height: 400px;
+    }
+    .card-overlay h3 {
+        font-size: 2.4em;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    .navbar .logo {
+        font-size: 2em;
+    }
+    .navbar .nav-links {
+        gap: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 3.2em;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+    }
+    .hero-content p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+    .hero-content .hero-button {
+        padding: 15px 40px;
+        font-size: 1.1em;
+    }
+
+    .intro-section {
+        padding: 90px 5%;
+    }
+    .intro-section h2, .models-showcase h2 {
+        font-size: 2.8em;
+        margin-bottom: 30px;
+    }
+    .intro-section h2::after, .models-showcase h2::after {
+        width: 70px;
+        height: 3px;
+    }
+    .intro-section p {
+        font-size: 1em;
+        margin-bottom: 40px;
+    }
+    .intro-section .cta-button {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+
+    .models-showcase {
+        padding: 100px 5% 80px;
+    }
+    .model-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .model-card {
+        height: 350px;
+    }
+    .card-overlay h3 {
+        font-size: 2em;
+    }
+    .card-overlay p {
+        font-size: 1em;
+    }
+    .card-overlay .details-button {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+
+    .footer {
+        padding: 50px 5%;
+    }
+    .social-links a {
+        margin: 0 10px;
+        font-size: 1em;
+    }
+}

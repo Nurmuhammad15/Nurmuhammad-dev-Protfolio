@@ -1,0 +1,756 @@
+/* style.css */
+
+/* -- Переменные CSS для удобства изменения цветов и шрифтов -- */
+:root {
+    --bg-color: #1a1a1a;          /* Основной фон (темно-серый) */
+    --text-color: #e0e0e0;        /* Основной цвет текста (светло-серый) */
+    --primary-accent: #00ADB5;    /* Основной акцентный цвет (бирюзовый) */
+    --secondary-bg: #222831;      /* Вторичный фон (для карточек, более темный серый) */
+    --border-color: #393E46;      /* Цвет границ/разделителей */
+    --btn-hover-bg: #008D96;      /* Цвет кнопки при наведении */
+    --font-family-primary: 'Inter', sans-serif; /* Основной шрифт */
+    --section-gap: 80px;          /* Отступ между секциями */
+    --transition-speed: 0.4s;     /* Общая скорость переходов */
+}
+
+/* -- Общие сбросы и базовые стили -- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Плавный скролл по якорям */
+}
+
+body {
+    font-family: var(--font-family-primary);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    -webkit-font-smoothing: antialiased; /* Сглаживание шрифтов для лучшей читаемости */
+    overflow-x: hidden; /* Предотвращает горизонтальный скролл */
+}
+
+a {
+    color: var(--primary-accent);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+    color: var(--btn-hover-bg);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Убирает лишний пробел под изображениями */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: var(--section-gap) 0;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary-accent);
+    border-radius: 2px;
+    transition: width var(--transition-speed) ease;
+}
+.section-title:hover::after {
+    width: 120px; /* Расширение подчеркивания при наведении */
+}
+
+
+/* -- Кнопки -- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    text-align: center;
+}
+
+.btn-telegram {
+    background-color: var(--primary-accent);
+    color: var(--bg-color);
+    border: 2px solid var(--primary-accent);
+}
+
+.btn-telegram:hover {
+    background-color: var(--btn-hover-bg);
+    border-color: var(--btn-hover-bg);
+    transform: translateY(-2px); /* Легкий подъем */
+    box-shadow: 0 5px 15px rgba(0, 173, 181, 0.4); /* Деликатная тень */
+}
+
+.btn-telegram i {
+    margin-left: 8px;
+}
+
+.btn-project {
+    background-color: var(--primary-accent);
+    color: var(--bg-color);
+    border: 2px solid var(--primary-accent);
+    margin-right: 15px;
+}
+
+.btn-project:hover {
+    background-color: var(--btn-hover-bg);
+    border-color: var(--btn-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 173, 181, 0.4);
+}
+
+.btn-project-outline {
+    background-color: transparent;
+    color: var(--primary-accent);
+    border: 2px solid var(--primary-accent);
+}
+
+.btn-project-outline:hover {
+    background-color: var(--primary-accent);
+    color: var(--bg-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 173, 181, 0.4);
+}
+
+.btn-project i {
+    margin-left: 8px;
+    font-size: 0.9rem;
+}
+
+/* -- Header / Navigation -- */
+.header {
+    background-color: rgba(26, 26, 26, 0.95); /* Полупрозрачный фон */
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color var(--transition-speed) ease; /* Плавное изменение фона */
+}
+
+.header.scrolled {
+    background-color: var(--bg-color); /* Полностью непрозрачный фон при скролле */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-accent);
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-speed) ease;
+}
+.logo:hover {
+    transform: scale(1.05); /* Легкое увеличение лого при наведении */
+}
+
+.logo-name {
+    color: var(--text-color);
+    margin-left: 5px;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin-right: 30px; /* Отступ между навигацией и кнопкой */
+}
+
+.nav-list li {
+    margin-right: 30px;
+}
+
+.nav-list li:last-child {
+    margin-right: 0;
+}
+
+.nav-link {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-color);
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-accent);
+    transition: width var(--transition-speed) ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Кнопки Telegram - видимость */
+.mobile-btn-telegram {
+    display: none; /* Скрыто на десктопе */
+}
+.desktop-btn-telegram {
+    display: flex; /* Показано на десктопе */
+    margin-left: 20px; /* Отступ от навигации */
+}
+
+
+/* Гамбургер-меню (скрыто по умолчанию) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Анимация гамбургер-меню при открытии */
+.hamburger.active .hamburger-line:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .hamburger-line:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+
+/* -- Hero Section -- */
+.hero-section {
+    min-height: calc(100vh - 80px); /* Высота на весь экран минус высота хедера */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(circle at center, #2e2e2e 0%, var(--bg-color) 70%); /* Более динамичный градиент */
+    padding: 50px 0;
+    overflow: hidden; /* Важно для анимаций */
+}
+
+.hero-content p, .hero-content h1, .hero-content .social-links {
+    opacity: 0; /* Скрыто по умолчанию для JS анимации */
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.hero-name {
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    background: linear-gradient(45deg, #e0e0e0, var(--primary-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGlow 1.5s infinite alternate; /* Анимация свечения текста */
+}
+
+.hero-title {
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--text-color);
+    margin-bottom: 40px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-links a {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-accent);
+    transform: translateY(-8px) scale(1.1); /* Более выразительный эффект */
+    text-shadow: 0 0 15px var(--primary-accent); /* Небольшое свечение */
+}
+
+/* -- Общие стили для анимируемых секций -- */
+.animated-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animated-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Задержка анимации для элементов внутри секций */
+.animated-section.is-visible .project-card,
+.animated-section.is-visible .skill-item {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: var(--animation-delay, 0s); /* Используем CSS переменную */
+}
+
+
+/* -- About Section -- */
+.about-section .container {
+    max-width: 900px;
+}
+
+.about-content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #c0c0c0; /* Немного светлее, чем основной текст */
+    text-align: center;
+}
+
+.about-content p {
+    margin-bottom: 20px;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+
+/* -- Projects Section -- */
+/* Параметры */
+.projects-section {
+  --projects-gap: 1.25rem;    /* расстояние между карточками */
+  --visible-per-row: 3;      /* по 3 карточки в ряду */
+}
+
+/* Контейнер: горизонтальная прокрутка с двумя рядами */
+.projects-section .projects-grid {
+  display: grid;
+  grid-auto-flow: column;                                 /* заполняем колонки слева направо */
+  grid-template-rows: repeat(2, auto);                    /* два ряда */
+  grid-auto-columns: calc((100% - ((var(--visible-per-row) - 1) * var(--projects-gap))) / var(--visible-per-row));
+  gap: var(--projects-gap);
+  overflow-x: auto;                                       /* горизонтальный скролл */
+  overflow-y: hidden;
+  padding-bottom: 12px;                                   /* запас под скроллбар */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;                          /* опционально: "прилипание" к колонкам */
+}
+
+/* Каждая карточка остаётся в своей ячейке сетки */
+.projects-section .projects-grid .project-card {
+  width: 100%;
+  box-sizing: border-box;
+  scroll-snap-align: start; /* для scroll-snap */
+}
+
+/* Мобильные и промежуточные брейкпоинты */
+/* На узких экранах уменьшаем количество видимых карточек в ряду */
+@media (max-width: 1400px) { .projects-section { --visible-per-row: 3; } }
+@media (max-width: 1100px) { .projects-section { --visible-per-row: 2; } }
+@media (max-width: 700px)  { 
+  .projects-section { --visible-per-row: 1; }
+  .projects-section .projects-grid { grid-template-rows: repeat(1, auto); } /* на мобилке — один ряд */
+}
+
+/* Стиль скроллбара (опционально) */
+.projects-section .projects-grid::-webkit-scrollbar { height: 10px; }
+.projects-section .projects-grid::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 8px; }
+.projects-section .projects-grid { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.12) transparent; }
+
+
+/* -- Skills Section -- */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    justify-items: center; /* Центрирование элементов внутри сетки */
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secondary-bg);
+    padding: 25px 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    width: 100%; /* Занимает всю ширину ячейки грида */
+    position: relative;
+    overflow: hidden; /* Для эффекта бордера */
+}
+
+.skill-item::before { /* Эффект свечения границы */
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, rgba(0, 173, 181, 0.7), transparent);
+    animation: rotate 4s linear infinite;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+}
+
+.skill-item:hover::before {
+    opacity: 1;
+}
+
+.skill-item:hover {
+    transform: translateY(-10px) scale(1.05); /* Более выразительный эффект */
+    background-color: #2c333e; /* Чуть светлее при наведении */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px var(--primary-accent); /* Добавляем свечение */
+}
+
+.skill-icon {
+    font-size: 4rem;
+    color: var(--primary-accent);
+    margin-bottom: 15px;
+    transition: color var(--transition-speed) ease, text-shadow var(--transition-speed) ease;
+}
+
+/* Стили для SVG иконок (Next.js, Tailwind) */
+.skill-icon.nextjs-icon,
+.skill-icon.tailwind-icon {
+    width: 4rem; /* Соответствует font-size для других иконок */
+    height: 4rem;
+    filter: drop-shadow(0 0 5px var(--primary-accent)); /* Свечение для SVG */
+    transition: filter var(--transition-speed) ease;
+}
+
+.skill-item:hover .skill-icon {
+    color: var(--btn-hover-bg); /* Изменение цвета иконки при наведении */
+    text-shadow: 0 0 15px var(--btn-hover-bg); /* Свечение текста иконок */
+}
+
+.skill-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* -- Contact Section -- */
+.contact-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-text {
+    font-size: 1.15rem;
+    color: #c0c0c0;
+    margin-bottom: 40px;
+    line-height: 1.7;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact-link {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    display: flex;
+    align-items: center;
+}
+
+.contact-link:hover {
+    color: var(--primary-accent);
+    transform: translateX(10px) scale(1.05); /* Более выразительный сдвиг */
+}
+
+.contact-link i {
+    font-size: 1.6rem;
+    margin-right: 15px;
+    color: var(--primary-accent);
+}
+
+/* -- Footer -- */
+.footer {
+    background-color: #121212; /* Еще более темный фон для футера */
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #999999;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer p {
+    margin-bottom: 10px;
+}
+
+.footer p:last-child {
+    margin-bottom: 0;
+}
+
+.footer i {
+    color: #e74c3c; /* Красное сердце */
+    margin: 0 5px;
+}
+
+/* -- Keyframe Анимации -- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 5px var(--primary-accent), 0 0 10px var(--primary-accent); }
+    50% { text-shadow: 0 0 10px var(--primary-accent), 0 0 20px var(--primary-accent), 0 0 30px var(--primary-accent); }
+    100% { text-shadow: 0 0 5px var(--primary-accent), 0 0 10px var(--primary-accent); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+/* -- Адаптивность (Media Queries) -- */
+
+@media (max-width: 1024px) {
+    .hero-name {
+        font-size: 4rem;
+    }
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .nav-list {
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+    /* Навигация для мобильных устройств */
+    .nav {
+        display: none; /* Скрыть обычную навигацию */
+        flex-direction: column;
+        position: fixed; /* Используем fixed для полноэкранного меню */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh; /* Высота на весь экран */
+        background-color: rgba(26, 26, 26, 0.98); /* Почти непрозрачный фон */
+        backdrop-filter: blur(8px); /* Добавляем эффект размытия фона */
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transform: translateX(100%); /* Скрыто справа */
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .nav.active {
+        display: flex; /* Показать при активном состоянии */
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-right: 0; /* Убираем отступ */
+    }
+
+    .nav-list li {
+        margin: 15px 0;
+    }
+
+    .nav-link {
+        font-size: 1.5rem; /* Крупнее для мобильного меню */
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .nav-link::after {
+        display: none; /* Убираем подчеркивание для мобильного меню */
+    }
+
+    /* Видимость кнопок Telegram на мобильных */
+    .desktop-btn-telegram {
+        display: none; /* Скрыто на мобильных */
+    }
+    .mobile-btn-telegram {
+        display: flex; /* Показано в мобильном меню */
+        margin-top: 30px; /* Отступ от навигационных ссылок */
+        font-size: 1.1rem;
+        padding: 15px 30px;
+    }
+
+
+    .hamburger {
+        display: flex; /* Показать гамбургер */
+    }
+
+    /* Hero Section */
+    .hero-name {
+        font-size: 3rem;
+    }
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    .social-links {
+        gap: 20px;
+    }
+    .social-links a {
+        font-size: 2rem;
+    }
+
+    /* Sections Padding */
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    /* About Section */
+    .about-content {
+        font-size: 1rem;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+        grid-template-columns: 1fr; /* Один столбец на мобильных */
+    }
+    .project-card {
+        margin: 0 10px; /* Боковые отступы для карточек */
+    }
+
+    /* Skills Section */
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
+    }
+    .skill-icon, .skill-icon.nextjs-icon, .skill-icon.tailwind-icon {
+        font-size: 3rem;
+        width: 3rem;
+        height: 3rem;
+    }
+    .skill-name {
+        font-size: 1.1rem;
+    }
+
+    /* Contact Section */
+    .contact-text {
+        font-size: 1rem;
+    }
+    .contact-link {
+        font-size: 1.1rem;
+    }
+    .contact-link i {
+        font-size: 1.4rem;
+    }
+
+    /* Prevent body scroll when mobile menu is open */
+    body.no-scroll {
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    .hero-name {
+        font-size: 2.5rem;
+    }
+    .hero-title {
+        font-size: 1.2rem;
+    }
+    .social-links {
+        gap: 15px;
+    }
+    .social-links a {
+        font-size: 1.8rem;
+    }
+    .project-title {
+        font-size: 1.5rem;
+    }
+    .btn-project, .btn-project-outline {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        margin-right: 10px;
+    }
+    .project-actions {
+        flex-direction: column; /* Кнопки одна под другой на очень маленьких экранах */
+        gap: 10px;
+    }
+}
