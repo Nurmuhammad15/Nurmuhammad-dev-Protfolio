@@ -557,3 +557,15 @@ img { max-width: 100%; display: block; }
   .section-heading { font-size: 1.1rem; }
   .social-links a { width: 26px; height: 26px; font-size: 0.7rem; }
 }
+
+
+/* Project placeholder images */
+.project-placeholder {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.project-img-wrap:hover .project-placeholder {
+  transform: scale(1.05);
+}
